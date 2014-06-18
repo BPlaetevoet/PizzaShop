@@ -33,4 +33,34 @@ class BestelItem{
     */
     protected $b_prijs;
     
+    public function __construct($productId, $aantal, $b_prijs, $bestelling){
+        $this->productId = $productId;
+        $this->aantal = $aantal;
+        $this->b_prijs = $b_prijs;
+        $this->bestelling = $bestelling;
+    }
+    public function getId(){
+        return $this->id;
+    }
+    public function getProductId(){
+        return $this->productId;
+    }
+    public function getAantal(){
+        return $this->aantal;
+    }
+    public function getB_Prijs(){
+        return $this->b_prijs;
+    }
+    public function getBestelling(){
+        return $this->bestelling;
+    }
+    public function setProductId($productId){
+        $this->productId = $productId;
+    }
+    public function setAantal($aantal){
+        $this->aantal = $aantal;
+    }
+    public function setB_Prijs($b_prijs){
+        $this->b_prijs = $b_prijs;
+    }
 }
