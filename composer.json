@@ -1,0 +1,15 @@
+{
+    "name": "vendor/pizzashop",
+    "description": "Description of project Pizzashop.",
+    "authors": [
+        {
+            "name": "bart plaetevoet",
+            "email": "bart.plaetevoet@telenet.be"
+        }
+    ],
+    "require": {
+        "doctrine/common": "2.5.x-dev",
+        "twig/twig": "1.16.x-dev",
+        "doctrine/orm": "2.4.x-dev"
+    }
+}
