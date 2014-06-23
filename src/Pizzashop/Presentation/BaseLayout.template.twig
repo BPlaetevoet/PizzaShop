@@ -2,12 +2,22 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/pizzastyle.css" />
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel='stylesheet' href='css/bootstrap.css' />
+        <link rel='stylesheet' href='css/pizzastyle.css' />
+        
         <title>PizzaShop</title>
     </head>
     <body>
+        {% block header %}
         {% include 'headerlayout.template.twig' %}
+        {% endblock header %}
+        {% block content %}
+        
+        {% endblock content %}
+        {% block footer %}
+        {% include 'footerlayout.template.twig' %}
+        {% endblock footer %}
     </body>
 </html>

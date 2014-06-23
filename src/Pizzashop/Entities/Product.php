@@ -22,21 +22,27 @@ class Product{
     protected $naam;
     /**
      * @var ArrayCollection
-     * @OneToMany(targetEntity="Ingredient", mappedBy="product", cascade={"ALL"})
+     * @OneToMany(targetEntity="Ingredient", mappedBy="product", cascade={"persist"})
      */
     protected $samenstelling;
     /**
-     * @Column(type="float", name="prijs", nullable=false)
+     * @Column(type="float", name="prijs_small", nullable=false)
      */
-    protected $prijs;
+    protected $prijs_small;
+     /**
+     * @Column(type="float", name="prijs_large", nullable=false)
+     */
+    protected $prijs_large;
     /**
      * @Column(type="float", name="promoprijs", nullable=true)
      */
     protected $promoprijs;
     
-    public function __construct($naam, $prijs){
+    
+    public function __construct($naam, $prijs_small, $prijs_large){
         $this->naam = $naam;
-        $this->prijs = $prijs;
+        $this->prijs_small = $prijs_small;
+        $this->prijs_large = $prijs_large;
         $this->samenstelling = new ArrayCollection();
     }
     public function getId(){
@@ -46,13 +52,19 @@ class Product{
         return $this->naam;
     }
     public function getSamenstelling(){
-        return $this->samenstelling->to_array();
+        return $this->samenstelling->toArray();
     }
     public function getIngredient($ingredient){
         return $this->samenstelling[$ingredient];
     }
-    public function getPrijs(){
-        return $this->prijs;
+    public function addIngredient(ingredient $ingredient){
+        $this->samenstelling[] = $ingredient;
+    }
+    public function getPrijs_Small(){
+        return $this->prijs_small;
+    }
+    public function getPrijs_Large(){
+        return $this->prijs_large;
     }
     public function getPromoprijs(){
         return $this->promoprijs;
@@ -63,8 +75,11 @@ class Product{
     public function setSamenstelling($samenstelling){
         $this->samenstelling = new ArrayCollection();
     }
-    public function setPrijs($prijs){
-        $this->prijs = $prijs;
+    public function setPrijs_Small($prijs_small){
+        $this->prijs_small = $prijs_small;
+    }
+    public function setPrijs_Large($prijs_large){
+        $this->prijs_large = $prijs_large;
     }
     public function setPromoprijs($promoprijs){
         $this->promoprijs = $promoprijs;

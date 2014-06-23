@@ -1,0 +1,11 @@
+{# cartItems.template.twig #}
+            
+            {% if cartItems %}Uw winkelwagentje :
+                <ul>
+                {% for item in cartItems %}
+                     <li>{{item[2]}} x {{ item[0].naam }} - {{ item[1] }} {{item[3] }} &euro;
+                         
+                {% endfor %}
+                {% else %}
+                             Uw wagentje bevat nog geen items.
+            {% endif %}

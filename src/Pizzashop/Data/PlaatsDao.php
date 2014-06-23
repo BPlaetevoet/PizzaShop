@@ -9,12 +9,17 @@ class PlaatsDao{
         $lijst = $mgr->getRepository('Pizzashop\\Entities\\Plaats')->findAll();
         return $lijst;
     }
+    public function getById($mgr, $id){
+        $plaats = $mgr->getRepository('Pizzashop\\Entities\\Plaats')->find($id);
+        return $plaats;
+    }
     public function getByPostcode($mgr, $postcode){
         $plaats = $mgr->getRepository('Pizzashop\\Entities\\Plaats')->findByPostcode($postcode);
         return $plaats;
     }
     public function getByGemeente($mgr, $gemeente){
         $plaats = $mgr->getRepository('Pizzashop\\Entities\\Plaats')->findByGemeente($gemeente);
+        return $plaats;
     }
     public function addPlaats($mgr, $postcode, $gemeente){
         $plaats = new Plaats($postcode, $gemeente);

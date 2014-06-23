@@ -16,4 +16,8 @@ return array(
     'Doctrine\\Common\\Cache\\' => array($vendorDir . '/doctrine/cache/lib'),
     'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib'),
     'Doctrine\\Common\\' => array($vendorDir . '/doctrine/common/lib'),
+    'Pizzashop\\Entities' => array($baseDir . '/src'),
+    'Pizzashop\\Data' => array($baseDir . '/src'),
+    'Pizzashop\\Business' => array($baseDir . '/src'),
+    'Pizzashop' => array($baseDir . '/src'),
 );

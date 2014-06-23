@@ -9,19 +9,19 @@ namespace Pizzashop\Entities;
 * indexes={@Index(name="gemeente_idx", columns={"gemeente"})})
 */
 class Plaats{
-    /**
+/**
 * @id
 * @Column(type="integer", unique=true, nullable=false)
 * @GeneratedValue
 */
-    protected $id;
+    private $id;
 
     /** @Column(type="integer", length=4,name="postcode")*/
-    protected $postcode;
+    private $postcode;
     /** @Column(type="string", length=32, name="gemeente")*/
-    protected $gemeente;
+    private $gemeente;
     
-    public function __create($postcode, $gemeente){
+    public function __construct($postcode, $gemeente){
         $this->postcode = $postcode;
         $this->gemeente = $gemeente;
     }

@@ -1,0 +1,28 @@
+{# home.twig #}
+{% extends 'BaseLayout.template.twig' %}
+{% block content %}
+<div class='container'>
+<h1>VDAB Pizzeria</h1>
+<p>&nbsp;</p>
+<div class="col-sm-4">
+    <ul class="pizza">Populaire gerechten
+{% for item in lijst %}
+    <li class="pizzalijst">{{item.naam}} vanaf {{item.prijs_small}}
+    </li>
+{% endfor %}
+<ul>
+</div>
+<div class="col-sm-4">
+    <ul class="pizza">Laatste recensies
+        {% for recensie in recensielijst %}
+            <li>{{ recensie.titel }} <br>
+                geschreven door {{ recensie.voornaam }}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="col-sm-4">
+    {% include 'cartItems.template.twig' %}
+</div>
+</div>
+{% endblock content %}

@@ -9,18 +9,35 @@ class MemberDao{
         $member = $mgr->getRepository('Pizzashop\\Entities\\Member')->find($id);
         return $member;
     }
-    public function addMember($mgr, $naam, $voornaam, $straat, $nr, $plaats, $telefoonnr, $mail, $password){
-        $member = new Member($naam, $voornaam, $straat, $nr, $plaats, $telefoonnr, $mail, $password);
+    public function getByMail($mgr, $mail){
+        $member = $mgr->getRepository('Pizzashop\\Entities\\Member')->findOneByMail($mail);
+        if(!$member){
+            return NULL;
+        }else{
+            return $member;
+        }
+    }
+    public function login($mgr, $mail, $password){
+        $login = $mgr->getRepository('Pizzashop\\Entities\\Member')->findOneBy(array('mail'=>$mail, 'password'=>$password));
+        if($login){
+            return $login;
+        }else{
+            return NULL;
+        }
+    }
+    public function addMember($mgr, $naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr, $mail, $password){
+        $member = new Member($naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr, $mail, $password);
         $mgr->persist($member);
         $mgr->flush();
         return $member;
     }
-    public function updateMember($mgr, $id, $naam, $voornaam, $straat, $nr, $plaats, $telefoonnr, $mail, $password){
+    public function updateMember($mgr, $id, $naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr, $mail, $password){
         $member = MemberDao::getById($mgr, $id);
         $member->setNaam($naam);
         $member->setVoornaam($voornaam);
         $member ->setStraat($straat);
         $member->setNr($nr);
+        $member->setBus($bus);
         $member->setPlaats($plaats);
         $member->setTelefoonnr($telefoonnr);
         $member->setMail($mail);

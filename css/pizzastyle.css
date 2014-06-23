@@ -1,0 +1,117 @@
+/*
+Pizzashop css stylesheet
+Author :  Bart Plaetevoet
+VDAB PHP EindProject Pizzashop
+*/
+/* @font-face kit by Fonts2u */ 
+@font-face {
+    font-family:"akaDora";
+    src:url("http://localhost/pizzashop/fonts/akaDora.eot?") format("eot"),
+        url("http://localhost/pizzashop/fonts/akaDora.woff") format("woff"),
+        url("http://localhost/pizzashop/fonts/akaDora.ttf") format("truetype"),
+        url("http://localhost/pizzashop/fonts/akaDora.svg#akaDora") format("svg");
+    font-weight:normal;
+    font-style:normal;
+}
+
+/****Mobile First*********/
+body {
+  /*background-color: #cc6600;*/
+  background-color: #ffe57f;
+  color: darkslategray;
+}
+.topbar{
+    background-color: #282828;
+    position:fixed;
+    z-index:10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
+}
+/********** navigatie custom color ************/
+.nav-tabs {
+    border-bottom: none;
+}
+.nav-tabs > li > a {
+    border: none;
+    border-radius: 0;
+    color:white;
+}
+.nav > li > a:hover, .nav > li > a:focus {
+    background-color:#cc6600;
+}
+header {
+    background-color: #282828;
+    width: 100%;  
+    color: white;
+}
+.header-content{
+    margin-top:20px;
+    background-image: url(../images/pizza9.jpg);
+    background-size: 100%;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
+}
+.container {
+  width: 90%;
+  margin: 0 auto;
+  clear: both;
+}
+.bottom {
+    position: absolute;
+    top: 38px;
+}
+.pizza {
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 5px;
+    border: 1px solid black;
+}
+.pizzahead {
+    font-family: akaDora;
+    color: darkslategray;
+}
+.ingredients {
+    font-style: italic;
+    font-size : 75%;
+    color: inherit;
+}
+ul.pizza > li{
+    clear: both;
+}
+.pizzalijst {
+    overflow:auto;
+    border-bottom:1px solid black;
+}
+li.pizzalijst > img{
+    float:left;
+}
+.pizza-img {
+    width:200px;
+    height: 76px;
+}
+.pizza-btn{
+    background-color:#cc6600;
+    margin: 5px 0px;
+}
+.pizza-btn:hover{
+    background-color:#994d00;
+}
+a .pizza-btn, a:hover .pizza-btn {
+    color:white;
+}
+.loginform{
+    margin-top : 50px;
+    padding-top: 50px;
+    padding-bottom:50px;
+    background-color: rgba(255,255,255,0.5);
+    border-radius : 4px;
+    border: 1px solid brown;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
+}
+

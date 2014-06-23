@@ -1,0 +1,59 @@
+{# registerform.template #}
+
+<form role="form" method="post" action="registreer.php">
+	<div class="form-group">
+		<label for="voornaam">Voornaam :</label>
+		<input type="text" class="form-control" id="voornaam" placeholder="Jan" />
+	</div>
+	<div class="form-group">
+		<label for="naam">Familienaam</label>
+		<input type="text" class="form-control" id="naam" placeholder="Janssens" />
+	</div>
+        <div class="form-group">
+            <label for="mail">E-mail</label>
+            <input type="email" class="form-control" id="mail" placeholder="ieamand@voorbeeld.be" />
+        </div>
+    <div class="form-group">
+            <label for="password">wachtwoord</label>
+            <input type="password" class="form-control" id="password" />
+        </div>
+        <div class="form-group">
+            <label for="telefoon">Telefoon</label>
+            <input type="text" class="form-control" id="telefoon" placeholder="0494010203" />
+        </div>
+	<div class="form-group">
+            <div class="row">
+                <div class="col-sm-6 xs-12">
+		<label for="straat">Straat</label>
+		<input type="text" class="form-control" id="straat" placeholder="straat" />
+                </div>
+                <div class="col-sm-4 col-xs-8">
+                <label for="nummer">Huisnummer</label>
+                <input type="number" class="form-control" id="nummer" />
+                </div>
+                <div class="col-sm-2 col-xs-4">
+                    <label for="bus">Bus</label>
+                    <input type="text" class="form-control optional" id="bus" />
+                </div>
+            </div>
+	</div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-sm-5">
+                    <label for="plaats">Kies uw gemeente</label>
+                    <select class="form-control" id="plaats">
+                        {% for plaats in plaatslijst %}
+                            <option value="{{ plaats.id }}">{{ plaats.gemeente }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+	<div class="checkbox">
+            <label><input type="checkbox" /> Ik ga akkoord met de <a href="index.php?id=voorwaarden">Algemene voorwaarden</a></label>
+	</div>
+        </div>
+	<button type="submit" class="btn btn-default">Verzenden</button>
+</form>
+

@@ -9,8 +9,16 @@ class MemberService{
         $member = MemberDao::getById($mgr, $id);
         return $member;
     }
-    public function addMember($mgr, $naam, $voornaam, $straat, $nr, $plaats, $telefoonnr, $mail, $password){
-        $member = MemberDao::addMember($mgr, $naam, $voornaam, $straat, $nr, $plaats, $telefoonnr, $mail, $password);
+    public function getByMail($mgr, $mail){
+        $member = MemberDao::getByMail($mgr, $mail);
+        return $member;
+    }
+    public function login($mgr, $mail, $password){
+        $member = MemberDao::login($mgr, $mail, $password);
+        return $member;
+    }
+    public function addMember($mgr, $naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr, $mail, $password){
+        $member = MemberDao::addMember($mgr, $naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr, $mail, $password);
         return $member;
     }
     public function updateMember($mgr, $id, $naam, $voornaam, $straat, $nr, $plaats, $telefoonnr, $mail, $password){

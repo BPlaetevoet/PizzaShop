@@ -1,0 +1,25 @@
+{# headerlayout.template #}
+<header>
+    <div class="topbar">
+        <div class="container">
+            <div class="col-sm-6">
+            {% include 'topmenu.template.twig' %}
+            </div>
+            <div class="pull-right">
+        {% if login %}Welkom {{ login.voornaam }} <a href="login.php?actie=uitloggen"><button class="btn pizza-btn">Uitloggen</button></a>
+        {% else %}
+            <a href="index.php?page=login"><button class="btn pizza-btn">Inloggen</button></a>
+            <a href="registreer.php"><button class="btn pizza-btn">Registreren</button></a>
+        {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="header-content">
+        <div class="container">
+            <div class="col-xs-4 col-xs-offset-4">
+            <img class='img-logo' src='images/logo.png' />
+            </div>
+            
+        </div>
+    </div>
+</header>

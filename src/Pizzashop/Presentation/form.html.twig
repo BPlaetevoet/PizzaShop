@@ -1,0 +1,21 @@
+{# empty Twig template #}
+
+    <form action="registreer.php" method="post">
+        
+        {% for key,value in form %}
+            <div class="form-group{% if key in errors|keys %} has-error{% endif %}">
+                <label class="control-label" for="{{key}}">{{key|capitalize }} :</label>
+                    {% if value == "select" %}
+                        <select class="form-control" id="{{ key }}" name="{{ key }}">
+                            {% for plaats in plaatslijst %}
+                                <option value="{{ plaats.id }}" {% if fields[key]== plaats.id %} selected {% endif %}>{{ plaats.gemeente }}</option>
+                            {% endfor %}
+                        </select>
+                    {% else %}
+                        <input type="{{ value }}" class="form-control" id="{{ key }}" name="{{ key }}"{% if key in fields|keys %}value="{{fields[key]}}"{% endif %}  />
+                        {% if key in errors|keys %} <span class="help-block"><strong>{{ errors[key] }}</strong></span>{% endif %}
+                            {% endif %}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-default">Verzenden</button>
+    </form>

@@ -14,7 +14,7 @@ class Ingredient{
      */
     protected $id;
     /**
-     * @ManyToOne(targetEntity="Product", inversedBy="samenstelling")
+     * @ManyToOne(targetEntity="Product", inversedBy="samenstelling", cascade={"persist"})
      * @JoinColumn(name="product_id", nullable=false, onDelete="CASCADE", referencedColumnName="id")
      */
     protected $product;
