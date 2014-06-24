@@ -9,20 +9,16 @@
     <ul>
     {% for item in lijst %}
         <li class="pizzalijst">
-{#            <div class="col-md-2 hidden-xs"><img src="images/{{ item.naam }}.jpg" class="img-rounded img-responsive pizza-img"></div>#}
-{#            <div class="col-xs-8">#}<h2 class="pizzahead">{{ item.naam }}</h2>
-            <p class="ingredients">{% for ingredient in item.samenstelling %}{{ ingredient.i_naam }}{% if not loop.last %} , {% endif %}{% endfor %}</p>
-{#            </div>#}
-{#            <div class="col-xs-4">#}
-<span class="pull-right">
-            <a href="updatecart.php?action=add&pizza={{ item.id }}&size=small"><button class="btn pizza-btn" action="addcart.php" method="post">Small {{ item.prijs_small }} &euro;</button></a>
-            <a href="updatecart.php?action=add&pizza={{ item.id }}&size=large"><button class="btn pizza-btn" action="addcart.php" method="post">Large {{ item.prijs_large }} &euro;</button></a>
-            {#            </div>#}</span>
+            <h2 class="pizzahead">{{ item.naam }}</h2>
+            <p class="ingredients">{% for ingredient in item.samenstelling %}{{ ingredient.i_naam }}{% if not loop.last %} , {% endif %}{% endfor %}
+
+            <a href="updatecart.php?action=add&pizza={{ item.id }}"><button class="btn pizza-btn" action="addcart.php" method="post">{{ item.prijs}} &euro;</button></a>
+            </p>
         </li>
     {% endfor %}
     <ul>
     </div>
-    <aside class="col-sm-6">
+    <aside class="col-sm-6 pull-right cartItems">
     {% include 'cartItems.template.twig' %}
     </aside>
     </section>

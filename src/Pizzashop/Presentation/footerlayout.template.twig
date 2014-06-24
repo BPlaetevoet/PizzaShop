@@ -1,1 +1,31 @@
 {# footerlayout.template.twig #}
+<footer>
+    <div class="container container-xs-height">
+        <div class="row row-xs-height">
+            <div class="col-xs-4 col-xs-height">
+                <ul>
+                    {% for item in navigation_bar %}
+                        <li><a href="{{item[0]}}">{{ item[1] }}</a>
+                    {% endfor %}
+                </ul>
+            </div>
+                <div class="col-xs-4 col-xs-height">
+                    <h3 class="pizzahead">Tags</h3>
+                    {% for ingredient in ingredientlijst %}
+                        <a href="index.php?page=pizzas&ingredient={{ ingredient.i_naam }}">{{ ingredient.i_naam }}</a> {% if not loop.last %}, {% endif %}
+                        {% endfor %}
+                </div>
+                <div class="col-xs-4 col-xs-height">
+                    <address>
+                        <ul><h3 class="pizzahead">VDAB Pizzeria</h3>
+                            <li>straat, 12
+                            <li>8950 Wevelgem
+                            <li>Open van 10u - 23u
+                            <li>Maandag gesloten
+                        </ul>
+                    </address>
+                </div>
+        </div>
+        
+    </div>
+</footer>

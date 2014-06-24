@@ -4,6 +4,7 @@ namespace Pizzashop\Data;
 
 use Pizzashop\Entities\Product;
 use Pizzashop\Data\IngredientDao;
+use Doctrine\Common\Util\Debug;
 
 class ProductDao{
     public function getAll($mgr){
@@ -14,8 +15,8 @@ class ProductDao{
         $product = $mgr->getRepository('Pizzashop\\Entities\\Product')->find($id);
         return $product;
     }
-    public function getOneByValue($mgr, $value){
-        $product = $mgr->getRepository('Pizzashop\\Entities\\Product')->findOneBy($value);
+    public function getOneByNaam($mgr, $naam){
+        $product = $mgr->getRepository('Pizzashop\\Entities\\Product')->findOneBy($naam);
         return $product;
     }
     public function getOrderedByValue($mgr, $value){
@@ -23,8 +24,21 @@ class ProductDao{
         $lijst = $query->getResult();
         return $lijst;
     }
-    public function addProduct($mgr, $naam, $prijs_small, $prijs_large, $samenstelling){
-        $product = new Product($naam, $prijs_small, $prijs_large);
+    public function getByIngredient($mgr, $ingredient){
+        $qb = $mgr->createQueryBuilder();
+        $qb->select('p')
+                ->from('Pizzashop\\Entities\\Product', 'p' )
+                ->join('Pizzashop\\Entities\\Ingredient', 'i')
+                ->where($qb->expr()->eq('i.product', 'p.id'))
+                ->andwhere($qb->expr()->eq('i.i_naam', '?1'))
+                ->setParameter(1, $ingredient)
+                ->groupBy('i.product');
+        $query = $qb->getQuery();
+        $lijst = $query->getResult();
+        return $lijst;
+    }    
+    public function addProduct($mgr, $naam, $prijs, $samenstelling){
+        $product = new Product($naam, $prijs);
         foreach($samenstelling as $i_naam){
             $ingredient = IngredientDao::addIngredient($mgr, $product, $i_naam);
             $product->AddIngredient($ingredient);
@@ -37,13 +51,11 @@ class ProductDao{
         $mgr->remove($product);
         $mgr->flush();
     }
-    public function updateProduct($mgr, $id, $naam, $samenstelling, $prijs_small, $prijs_large, $promoprijs){
-        $product = ProductDao::getByValue($mgr, $id);
+    public function updateProduct($mgr, $id, $naam, $samenstelling, $prijs){
+        $product = ProductDao::getById($mgr, $id);
         $product->setNaam($naam);
         $product->setSamenstelling($samenstelling);
-        $product->setPrijs_Small($prijs_small);
-        $product->setPrijs_Large($prijs_large);
-        $product->setPromoprijs($promoprijs);
+        $product->setPrijs($prijs);
         $mgr->persist($product);
         $mgr->flush();
         return $product;

@@ -1,6 +1,6 @@
-{# registerform.template #}
+{# bestelformulier.html.twig #}
 
-<form role="form" method="post" action="registreer.php">
+<form class="pizzaform" role="form" method="post" action="actie.php">
 	<div class="form-group">
 		<label for="voornaam">Voornaam :</label>
 		<input type="text" class="form-control" id="voornaam" placeholder="Jan" />
@@ -27,11 +27,11 @@
 		<label for="straat">Straat</label>
 		<input type="text" class="form-control" id="straat" placeholder="straat" />
                 </div>
-                <div class="col-sm-4 col-xs-8">
-                <label for="nummer">Huisnummer</label>
+                <div class="col-sm-3 col-xs-8">
+                <label for="nummer">Nr</label>
                 <input type="number" class="form-control" id="nummer" />
                 </div>
-                <div class="col-sm-2 col-xs-4">
+                <div class="col-sm-3 col-xs-4">
                     <label for="bus">Bus</label>
                     <input type="text" class="form-control optional" id="bus" />
                 </div>
@@ -49,11 +49,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
-	<div class="checkbox">
-            <label><input type="checkbox" /> Ik ga akkoord met de <a href="index.php?id=voorwaarden">Algemene voorwaarden</a></label>
-	</div>
-        </div>
-	<button type="submit" class="btn btn-default">Verzenden</button>
+
+	<button type="submit" class="btn pizza-btn">Verzenden</button>
 </form>
 

@@ -1,0 +1,33 @@
+{# afrekenen.twig #}
+
+{% extends 'BaseLayout.template.twig' %}
+{% block content %}
+    <div class="container">
+        <div class="col-sm-6">
+            <h2 class="pizzahead">Uw gekozen producten</h2>
+            <ul class="pizzalijst">
+                {% for item in cartItems %}
+                    <li class="pizzalijst">{{ item[1] }} x {{ item[0].naam }} - {{ item[0].prijs }} &euro;
+                {% endfor %}
+                <li> Totaal : {{ totaal }} &euro;
+            </ul>
+    </div>
+    <div class="col-sm-6">
+    {% if login %}
+        <h2 class="pizzahead"> Uw Gegevens :</h2>
+        <p> Naam : {{ login.voornaam }} {{ login.naam }}<br />
+            Adres : {{ login.straat }} {{ login.nr }} {% if login.bus %} Bus {{ login.bus }} {% endif %}<br />
+            Gemeente : {{ login.plaats.postcode }} {{ login.plaats.gemeente }}<br />
+            Tel.: {{ login.telefoonnr }}<br />
+        </p>
+        {% else %}
+            <h2 class="pizzahead"> Maak uw keuze </h2>
+            <a href="index.php?page=afrekenen&option=login"> Ik heb een account </a><br />
+            <a href="index.php?page=afrekenen&option=new"> Ik heb geen account </a><br />
+            {% if option == 'new' %}
+            {% include 'bestelformulier.html.twig' %}
+            {% endif %}
+    {% endif %}
+    </div>
+    </div>
+{% endblock %}

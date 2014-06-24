@@ -1,6 +1,7 @@
 {# login.twig #}
 {% extends 'BaseLayout.template.twig' %}
 {% block content %}
+    <div class="container">
     <div class="col-sm-4 col-sm-offset-4 loginform">
         {% if login %}
             Bedankt om in te loggen {{ login.voornaam }} {{login.naam }}<br>
@@ -11,5 +12,6 @@
             {% endif %}
     {% include 'loginform.html.twig' %}
     {% endif %}
+    </div>
     </div>
 {% endblock %}

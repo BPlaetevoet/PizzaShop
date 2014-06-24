@@ -18,6 +18,7 @@ if(isset($_GET["actie"])&& $_GET["actie"]== "inloggen"){
             if (isset($_SESSION['loginerror'])){
                 unset($_SESSION['loginerror']);
             }
+            $_SESSION['login']=$login->getId();
             setcookie('pizzashop_cookie', $mail, time()+3600*24*30);
         }else {
             $_SESSION['loginerror']='verkeerde combinatie mail/password';

@@ -1,11 +1,14 @@
 {# cartItems.template.twig #}
             
-            {% if cartItems %}Uw winkelwagentje :
-                <ul>
+{% if cartItems %}<h2 class="pizzahead">Uw winkelwagentje :</h2>
+                <ul class="col-xs-6 pull-right pizzalijst">
                 {% for item in cartItems %}
-                     <li>{{item[2]}} x {{ item[0].naam }} - {{ item[1] }} {{item[3] }} &euro;
+                     <li class="pizzalijst">{{item[1]}} x {{ item[0].naam }} - {{ item[0].prijs }} &euro;
                          
                 {% endfor %}
+                <li> Totaal : {{ totaal }} &euro;
+               </ul>
+                <a class="col-xs-7 pull-right" href="index.php?page=afrekenen"><button class="btn pizza-btn" >Afrekenen</button></a>      
                 {% else %}
-                             Uw wagentje bevat nog geen items.
+                    <h2 class="pizzahead">Uw wagentje bevat nog geen items.</h2>
             {% endif %}

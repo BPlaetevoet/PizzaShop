@@ -26,23 +26,13 @@ class Product{
      */
     protected $samenstelling;
     /**
-     * @Column(type="float", name="prijs_small", nullable=false)
+     * @Column(type="float", name="prijs", nullable=false)
      */
-    protected $prijs_small;
-     /**
-     * @Column(type="float", name="prijs_large", nullable=false)
-     */
-    protected $prijs_large;
-    /**
-     * @Column(type="float", name="promoprijs", nullable=true)
-     */
-    protected $promoprijs;
+    protected $prijs;
     
-    
-    public function __construct($naam, $prijs_small, $prijs_large){
+    public function __construct($naam, $prijs){
         $this->naam = $naam;
-        $this->prijs_small = $prijs_small;
-        $this->prijs_large = $prijs_large;
+        $this->prijs = $prijs;
         $this->samenstelling = new ArrayCollection();
     }
     public function getId(){
@@ -60,14 +50,8 @@ class Product{
     public function addIngredient(ingredient $ingredient){
         $this->samenstelling[] = $ingredient;
     }
-    public function getPrijs_Small(){
-        return $this->prijs_small;
-    }
-    public function getPrijs_Large(){
-        return $this->prijs_large;
-    }
-    public function getPromoprijs(){
-        return $this->promoprijs;
+    public function getPrijs(){
+        return $this->prijs;
     }
     public function setNaam($naam){
         $this->naam = $naam;
@@ -75,13 +59,8 @@ class Product{
     public function setSamenstelling($samenstelling){
         $this->samenstelling = new ArrayCollection();
     }
-    public function setPrijs_Small($prijs_small){
-        $this->prijs_small = $prijs_small;
+    public function setPrijs($prijs){
+        $this->prijs = $prijs;
     }
-    public function setPrijs_Large($prijs_large){
-        $this->prijs_large = $prijs_large;
-    }
-    public function setPromoprijs($promoprijs){
-        $this->promoprijs = $promoprijs;
-    }
+    
 }

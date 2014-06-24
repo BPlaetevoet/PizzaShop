@@ -21,15 +21,19 @@ class ProductService{
         $lijst = ProductDao::getOrderedByValue($mgr, $value);
         return $lijst;
     }
-    public function addProduct($mgr, $naam, $prijs_small, $prijs_large, $samenstelling){
-        $product = ProductDao::addProduct($mgr, $naam, $prijs_small, $prijs_large, $samenstelling);
+    public function getByIngredient($mgr, $ingredient){
+        $lijst = ProductDao::getByIngredient($mgr, $ingredient);
+        return $lijst;
+    }
+    public function addProduct($mgr, $naam, $prijs, $samenstelling){
+        $product = ProductDao::addProduct($mgr, $naam, $prijs, $samenstelling);
         return $product;
     }
     public function deleteProduct($mgr, $product){
         ProductDao::deleteProduct($mgr, $product);
     }
-    public function updateProduct($mgr, $id, $naam, $samenstelling, $prijs_small, $prijs_large, $promoprijs){
-        $product = ProductDao::updateProduct($mgr, $id, $naam, $samenstelling, $prijs_small, $prijs_large, $promoprijs);
+    public function updateProduct($mgr, $id, $naam, $samenstelling, $prijs){
+        $product = ProductDao::updateProduct($mgr, $id, $naam, $samenstelling, $prijs);
         return $product;
     }
 }

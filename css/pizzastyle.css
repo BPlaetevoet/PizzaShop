@@ -13,12 +13,26 @@ VDAB PHP EindProject Pizzashop
     font-weight:normal;
     font-style:normal;
 }
-
-/****Mobile First*********/
+/************************* BODY ***********************************************/
 body {
   /*background-color: #cc6600;*/
-  background-color: #ffe57f;
+  background-color: #fffaf0;
   color: darkslategray;
+}
+.container {
+  width: 80%;
+  margin: 0 auto;
+  clear: both;
+}
+/**** zet alle li items zonder list-style-type ***/
+li {
+    list-style-type: none;
+}
+/********************** HEADER ************************************************/
+header {
+    background-color: #282828;
+    width: 100%;  
+    color: white;
 }
 .topbar{
     background-color: #282828;
@@ -31,7 +45,15 @@ body {
     -moz-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
     -webkit-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
 }
-/********** navigatie custom color ************/
+.header-content{
+    margin-top:20px;
+    background-image: url(../images/pizza9.jpg);
+    background-size: 100%;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
+    -webkit-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
+}
+/********** navigatie custom color ********************************************/
 .nav-tabs {
     border-bottom: none;
 }
@@ -43,28 +65,8 @@ body {
 .nav > li > a:hover, .nav > li > a:focus {
     background-color:#cc6600;
 }
-header {
-    background-color: #282828;
-    width: 100%;  
-    color: white;
-}
-.header-content{
-    margin-top:20px;
-    background-image: url(../images/pizza9.jpg);
-    background-size: 100%;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
-    -webkit-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
-}
-.container {
-  width: 90%;
-  margin: 0 auto;
-  clear: both;
-}
-.bottom {
-    position: absolute;
-    top: 38px;
-}
+
+
 .pizza {
     background-color: rgba(0,0,0,0.5);
     border-radius: 5px;
@@ -85,23 +87,32 @@ ul.pizza > li{
 .pizzalijst {
     overflow:auto;
     border-bottom:1px solid black;
+    padding-bottom: 10px;
 }
 li.pizzalijst > img{
     float:left;
+}
+li.pizzalijst >p > a > button.pizza-btn{
+    margin-bottom: 10px;
+    float: right;
 }
 .pizza-img {
     width:200px;
     height: 76px;
 }
-.pizza-btn{
-    background-color:#cc6600;
-    margin: 5px 0px;
+.img-logo{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    
 }
-.pizza-btn:hover{
-    background-color:#994d00;
+.cartItems{
+    text-align: right;
 }
-a .pizza-btn, a:hover .pizza-btn {
-    color:white;
+
+/******************* Formulieren  & Buttons ***********************************/
+.pizzaform {
+    padding: 25px 0;
 }
 .loginform{
     margin-top : 50px;
@@ -114,4 +125,25 @@ a .pizza-btn, a:hover .pizza-btn {
     -moz-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
     -webkit-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
 }
-
+.pizza-btn{
+    background-color:#cc6600;
+    margin: 0px 0px;
+}
+.pizza-btn:hover{
+    background-color:#994d00;
+}
+a .pizza-btn, a:hover .pizza-btn {
+    color:white;
+}
+/******************** FOOTER **************************************************/
+footer{
+    padding:20px;
+    background-color: #282828;
+    color: white;
+}
+footer .pizzahead{
+    color: white;
+}
+address >ul {
+    list-style-type: none;
+}
