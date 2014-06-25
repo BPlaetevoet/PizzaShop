@@ -7,17 +7,25 @@ use Pizzashop\Business\ProductService;
 use Pizzashop\Business\MemberService;
 use Pizzashop\Business\IngredientService;
 
+
 use Doctrine\Common\Util\Debug;
+// Controleer of er reeds een cookie bestaat om dit te grbuiken in de formulieren
 if(isset($_COOKIE['pizzashop_cookie'])){
     $twigDataArray['cookie']=$_COOKIE['pizzashop_cookie'];
 }
+// SESSION login
 if(isset($_SESSION['login'])){
-    $twigDataArray['login']= MemberService::getById($mgr, $_SESSION['login']);
+    $member = MemberService::getById($mgr, $_SESSION['login']);
+    $twigDataArray["login"]= TRUE;
+    $twigDataArray["klant"]= $member->getKlant();
+    $_SESSION["klant"] = $member->getklant()->getId();
 }
-if (isset($_SESSION['loginerror'])){
-    $twigDataArray['loginerror']=$_SESSION['loginerror'];
+if (isset($_SESSION["loginerror"])){ // problemen bij het inloggen opvangen en terug meegeven in dataArray
+    $twigDataArray["loginerror"]=$_SESSION['loginerror'];
 }
 $page = "home"; 
+
+
 if (isset($_GET["page"])){
     $page = $_GET["page"];
 }
@@ -29,7 +37,21 @@ if (isset($_GET["page"])){
         case "promoties" :
             $lijst = PromoService::getPromos($mgr);
             $twigDataArray["promolijst"] = $promolijst;
+        case "registreer" : 
+            include 'formcontroller.php';
+        case "afrekenen" :
+            if (isset($_GET["option"])){
+                $twigDataArray['option'] = $_GET["option"];
+                include 'formcontroller.php';
+            }
+        break;
+        case "home" :
+            $bestellijst = Pizzashop\Business\BestelService::getPopularItems($mgr);
+            $twigDataArray['bestellijst']=$bestellijst;
+            
+            
      }
+
 $twigDataArray["active_page"]=$page;
 if (isset($_SESSION["cartItems"])){
     $countItems = 0;

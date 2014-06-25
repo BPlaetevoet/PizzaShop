@@ -25,8 +25,8 @@ class MemberDao{
             return NULL;
         }
     }
-    public function addMember($mgr, $naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr, $mail, $password){
-        $member = new Member($naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr, $mail, $password);
+    public function addMember($mgr, $mail, $password, $klant){
+        $member = new Member($mail, $password, $klant);
         $mgr->persist($member);
         $mgr->flush();
         return $member;

@@ -1,7 +1,4 @@
 <?php
-session_start();
-
-require_once 'bootstrap.php';
 
 use Pizzashop\Business\KlantService;
 use Pizzashop\Business\MemberService;
@@ -14,10 +11,7 @@ function validate($data){ // valideer data
     $data = htmlspecialchars($data);
     return $data;
 }
-if(isset($_GET["id"])){
-    $id = validate($_GET["id"]);
-}
-$twigDataArray = array();
+
 $plaatslijst = PlaatsService::getAll($mgr); // dropdown keuzes vullen voor plaatsen
 $twigDataArray['plaatslijst'] = $plaatslijst;
 
@@ -77,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
             $fields['telefoonnr']= $telefoonnr;
         }
     }
-    if($_POST['page']=='registreer'){
+    if($page=='registreer'){
         if(empty($_POST['mail'])){ 
             $errors['mail'] = 'e-mail niet ingevuld';
         }else{
@@ -98,37 +92,40 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
     if (!empty($errors)){ // keer terug met fouten !!
         $twigDataArray['errors'] = $errors;
         $twigDataArray['fields'] = $fields;
-        if($id == 'klant'){ 
+//        if($id == 'klant'){ 
             $twigDataArray['option'] = 'new';
-            $view = $twig->render("afrekenen.twig", $twigDataArray);
-        }else{
-            $view = $twig->render("registreer.twig", $twigDataArray);
-        }
-        print $view;
+//            $view = $twig->render("afrekenen.twig", $twigDataArray);
+//        }else{
+//            $view = $twig->render("registreer.twig", $twigDataArray);
+//        }
+//        print $view;
     }
     if (empty($errors)){ // Geen errors ga verder met registratie
-        if($id=="klant"){
+        if($page=="afrekenen"){
             $klant = KlantService::addKlant($mgr, $naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr);
             if($klant){ // klantgegevens opslaan gelukt
                 $twigDataArray['klant'] = $klant;
-                $view = $twig->render("bevestigen.twig", array('klant'=>$klant));
-                print $view;
+                $_SESSION["klant"] = $klant->getId();
+//                $view = $twig->render("bevestigen.twig", array('klant'=>$klant));
+//                print $view;
             }
-        }else {
+        }elseif($page=="registreer") {
             $klant = KlantService::addKlant($mgr, $naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr);
             $member = MemberService::addMember($mgr, $mail, md5($password), $klant);
             if($member){ // registratie gelukt 
                 setcookie('pizzashop_cookie', $mail, 0);
                 $_SESSION['login'] = $member->getId();
-                $view = $twig->render('registreer.twig', array('login'=>$member));
-                print $view;
-            }else{
-                $view = $twig->render('registreer.twig', array('error'=>'E-mail adres is al geregistreerd'));
+//                $view = $twig->render('registreer.twig', array('login'=>$member));
+//                print $view;
+//            }else{
+//                $view = $twig->render('registreer.twig', array('error'=>'E-mail adres is al geregistreerd'));
             }  
         }
         
     }
-}else {
-    $view = $twig->render('registreer.twig', array('plaatslijst'=>$plaatslijst));
-    print $view;
 }
+
+//}else {
+//    $view = $twig->render('registreer.twig', array('plaatslijst'=>$plaatslijst));
+//    print $view;
+//}

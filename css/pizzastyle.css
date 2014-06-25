@@ -76,6 +76,11 @@ header {
     font-family: akaDora;
     color: darkslategray;
 }
+.thanx {
+    font-family: akaDora;
+    color: darkslategray;
+    font-size : 750%;
+}
 .ingredients {
     font-style: italic;
     font-size : 75%;

@@ -1,6 +1,7 @@
 {# afrekenen.twig #}
 
 {% extends 'BaseLayout.template.twig' %}
+{% set page='afrekenen' %}
 {% block content %}
     <div class="container">
         <div class="col-sm-6">
@@ -13,19 +14,28 @@
             </ul>
     </div>
     <div class="col-sm-6">
-    {% if login %}
+    {% if klant %}
         <h2 class="pizzahead"> Uw Gegevens :</h2>
-        <p> Naam : {{ login.voornaam }} {{ login.naam }}<br />
-            Adres : {{ login.straat }} {{ login.nr }} {% if login.bus %} Bus {{ login.bus }} {% endif %}<br />
-            Gemeente : {{ login.plaats.postcode }} {{ login.plaats.gemeente }}<br />
-            Tel.: {{ login.telefoonnr }}<br />
+        <p> Naam : {{ klant.voornaam }} {{ klant.naam }}<br />
+            Adres : {{ klant.straat }} {{ klant.nr }} {% if klant.bus %} Bus {{ klant.bus }} {% endif %}<br />
+            Gemeente : {{ klant.plaats.postcode }} {{ klant.plaats.gemeente }}<br />
+            Tel.: {{ klant.telefoonnr }}<br />
         </p>
+        <a href="plaatsbestelling.php"><button class="btn pizza-btn">Bevestigen</button></a>
+        <br>
+        <br>
         {% else %}
+            {% if option == 'login' %}
+                <br><br>
+                {% include 'loginform.html.twig' %}
+                <br><br>
+                {% elseif option == 'new' %}
+                    {% include 'form.html.twig' %}
+                    {% else %}
             <h2 class="pizzahead"> Maak uw keuze </h2>
             <a href="index.php?page=afrekenen&option=login"> Ik heb een account </a><br />
             <a href="index.php?page=afrekenen&option=new"> Ik heb geen account </a><br />
-            {% if option == 'new' %}
-            {% include 'bestelformulier.html.twig' %}
+
             {% endif %}
     {% endif %}
     </div>

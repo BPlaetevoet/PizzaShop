@@ -9,8 +9,8 @@ class KlantService{
         $klant = KlantDao::getById($mgr, $id);
         return $klant;
     }
-    public function addKlant($mgr, $naam, $voornaam, $straat, $nr, $plaats, $telefoonnr){
-        $klant = KlantDao::addKlant($mgr, $naam, $voornaam, $straat, $nr, $plaats, $telefoonnr);
+    public function addKlant($mgr, $naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr){
+        $klant = KlantDao::addKlant($mgr, $naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr);
         return $klant;
     }
 }

@@ -1,0 +1,16 @@
+{# bedankt.twig #}
+{% extends 'BaseLayout.template.twig' %}
+{% block content %}
+    <div class="container">
+    <span class="thanx"> Gracias </span>
+    <p>
+     Bedankt voor uw bestelling, onze koerier komt binnen het uur langs met :
+    </p>
+    <p>
+     {% for item in bestelling %}
+         {{ item.aantal }}x {{ item.product.naam }}<br />
+     {% endfor %}
+     Laat het u smaken
+    </p>
+    </div>
+{% endblock %}

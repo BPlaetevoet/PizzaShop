@@ -6,8 +6,8 @@
 <p>&nbsp;</p>
 <div class="col-sm-4">
     <ul class="pizza">Populaire gerechten
-{% for item in lijst %}
-    <li class="pizzalijst">{{item.naam}} vanaf {{item.prijs_small}}
+{% for item in bestellijst %}
+    <li class="pizzalijst">{{item.naam}} vanaf {{item.prijs}}
     </li>
 {% endfor %}
 <ul>

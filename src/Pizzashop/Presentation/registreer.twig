@@ -1,15 +1,17 @@
 {# empty Twig template #}
 {% extends 'BaseLayout.template.twig' %}
+{% set page='registreer' %}
 {% block content %}
     <div class='container'>
     <h1>Registreer</h1>
-    <div class='col-sm-4 col-sm-offset-4 loginform'>
+    <div class='col-sm-6 col-sm-offset-3 loginform'>
         {% if login %}
-            <p>Bedankt {{ login.voornaam }} {{ login.naam }} om te registreren. </p>
+            <p>Bedankt {{ login.klant.voornaam }} {{ login.klant.naam }} om te registreren. </p>
             Klik <a href="index.php">hier</a> om terug te keren naar de homepagina.
             {% else %}
                 {% include 'form.html.twig' %}
         {% endif %}
     </div>
+
     </div>
 {% endblock %}

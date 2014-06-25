@@ -8,7 +8,7 @@ namespace Pizzashop\Entities;
  *      uniqueConstraints={@UniqueConstraint(name="mail_unique", columns={"email"})},
  *          indexes={@Index(name="mail_idx", columns={"email"})})
  */
-class Member extends Person {
+class Member {
     /**
     * @id
     * @Column(type="integer", unique=true, nullable=false)
@@ -27,12 +27,19 @@ class Member extends Person {
      * @Column(type="boolean", nullable=true)
      */
     protected $specialprice;
-
+    /**
+    * @OneToOne(targetEntity="Klant")
+    * @JoinColumn(name="klant_id", referencedColumnName="id")
+    */
+    protected $klant;
     
-    public function __construct($naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr, $mail, $password) {
-        parent::__construct($naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr);
+    public function __construct($mail, $password, $klant) {
         $this->mail = $mail;
         $this->password = $password;
+        $this->klant = $klant;
+    }
+    public function getId(){
+        return $this->id;
     }
     private function getPassword(){
         return $this->password;
@@ -43,6 +50,9 @@ class Member extends Person {
     public function getSpecialprice(){
         return $this->specialprice;
     }
+    public function getKlant(){
+        return $this->klant;
+    }
     public function setPassword($password){
         $this->password = md5($password);
     }
@@ -51,6 +61,9 @@ class Member extends Person {
     }
     public function setSpecialprice($specialprice){
         $this->specialprice = $specialprice;
+    }
+    public function setKlant($klant){
+        $this->klant = $klant;
     }
 }
 

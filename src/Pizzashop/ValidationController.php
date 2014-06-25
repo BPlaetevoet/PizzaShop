@@ -1,11 +1,11 @@
 <?php
 namespace Pizzashop;
-/* 
- * Aparte controller om gegevens te valideren
- */
-class ValidationController{ 
+/*
+* Aparte controller om gegevens te valideren
+*/
+class ValidationController{
 
-// valideer data 
+// valideer data
     public static function validate($data){
         $data = trim($data);
         $data = stripslashes($data);
@@ -13,4 +13,3 @@ class ValidationController{
         return $data;
     }
 }
-

@@ -17,8 +17,8 @@ class MemberService{
         $member = MemberDao::login($mgr, $mail, $password);
         return $member;
     }
-    public function addMember($mgr, $naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr, $mail, $password){
-        $member = MemberDao::addMember($mgr, $naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr, $mail, $password);
+    public function addMember($mgr, $mail, $password, $klant){
+        $member = MemberDao::addMember($mgr, $mail, $password, $klant);
         return $member;
     }
     public function updateMember($mgr, $id, $naam, $voornaam, $straat, $nr, $plaats, $telefoonnr, $mail, $password){
