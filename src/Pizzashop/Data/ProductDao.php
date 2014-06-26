@@ -62,15 +62,20 @@ class ProductDao{
     }
     
     public function getAllAndPromos($mgr){
-        $qb = $mgr->createQueryBuilder();
-        $qb->select('p')
-                ->addselect('b.promoprijs')
-                ->from('Pizzashop\\Entities\\Product', 'p')
-                ->join('Pizzashop\\Entities\\Promo', 'b')
-                ->where($qb->expr()->eq('p.id', 'b.product'))
-                ->andwhere(' :today BETWEEN b.begindatum AND b.einddatum' )
-                ->setParameter('today', new \DateTime('NOW'));
-        $query = $qb->getQuery();
+        
+        $query = $mgr->createQuery('select  p,  (case when b.product = p.id then p.prijs = b.promoprijs else p.prijs = p.prijs)as prijs from Pizzashop\\Entities\\Product p JOIN Pizzashop\\Entities\\Promo b');
+
+//        $qb = $mgr->createQueryBuilder();
+//        $qb->select('p')
+//                
+//                ->from('Pizzashop\\Entities\\Product', 'p');
+//                
+//                ->where($qb->expr()->eq('p.id', 'b.product'))
+//                ->addselect('b.promoprijs')
+//                ->join('Pizzashop\\Entities\\Promo', 'b')
+//                ->andwhere(' :today BETWEEN b.begindatum AND b.einddatum' )
+//                ->setParameter('today', new \DateTime('NOW'));
+//        $query = $qb->getQuery();
         $lijst =$query->getResult();
         return $lijst;
     }

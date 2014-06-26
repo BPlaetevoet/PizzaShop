@@ -32,13 +32,35 @@ if (isset($_GET["page"])){
 }
  switch ($page){
         case "pizzas" :
-            $promolijst = PromoService::getHuidigePromos($mgr);
-            $lijst = ProductService::getAll($mgr);
-            $twigDataArray["promolijst"] = $promolijst;
+            $pizzas = ProductService::getAll($mgr);
+            $lijst = array();
+            $today = new DateTime('NOW');
+            foreach($pizzas as $pizza){
+                $item = array(
+                    'id'=>$pizza->getId(), 
+                    'naam'=>$pizza->getNaam(),
+                    'samenstelling'=>array($pizza->getSamenstelling()),
+                    'prijs'=>$pizza->getPrijs(),
+                    'promo'=>false
+                    );
+                foreach($pizza->getPromo() as $promotie){
+                    if ($today > $promotie->getBegindatum() && $today < $promotie->getEinddatum()){
+                        $item['prijs']= $promotie->getPromoprijs();
+                        $item['promo']= true;
+                    }
+                }
+                    print '<pre>';
+    Debug::dump($item);
+    print '</pre><br><br>';
+                array_push($lijst, $item);
+            }
+//            $promolijst = PromoService::getHuidigePromos($mgr);
+  //          $lijst = ProductService::getAll($mgr);
+//            $twigDataArray["promolijst"] = $promolijst;
             $twigDataArray["lijst"] = $lijst;
-//            
+            
 //            print "<pre>";
-//            Debug::dump($promolijst);
+//            Debug::dump($lijst);
 //            print '</pre>';
         break;
         case "promoties" :

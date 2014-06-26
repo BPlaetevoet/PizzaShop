@@ -11,29 +11,26 @@
     {% for item in lijst %}
         <li class="pizzalijst">
            
-            <h2 class="pizzahead">{{ item.naam }}</h2>
-                
+            <h2 class="pizzahead">{{ item["naam"] }}{% if item["promo"] == 1 %} <span class="label label-success"><strong> PROMO </strong></span>
+                {% endif %}</h2>
             
-            <p class="ingredients">{% for ingredient in item.samenstelling %}{{ ingredient.i_naam }}{% if not loop.last %} , {% endif %}{% endfor %}
-     {% for promo in promolijst %}
-            {% if item.id == promo.product.id %}
-                <span class="label label-success"><strong> PROMO </strong></span>
-                {% endif %}
+            
+            <p class="ingredients">
+                {% for key, value in item["samenstelling"] %}
+                    {% for ingredient in value %}
+                        {{ ingredient.i_naam }}{% if not loop.last %} , {% endif %}
+                    {% endfor %}
                 {% endfor %}
-                <a href="updatecart.php?action=add&pizza={{ item.id }}">
-                <button class="btn pizza-btn" action="addcart.php" method="post">
-                {% for promo in promolijst %}
-            {% if item.id == promo.product.id %}
-            {{ promo.promoprijs}} 
-                {% elseif item.id != promo.product.id %}
-            {{ item.prijs}}
-                {% endif %}
+         
                 
-                {% endfor %}
-            {#  {{ item.prijs }}  &euro;#}&euro;</button></a>
+                
+               
+                <a href="updatecart.php?action=add&pizza={{ item["id"] }}">
+                <button class="btn pizza-btn" action="updatecart.php?action=add&pizza={{item["id"]}}" method="post">{{ item["prijs"]}}&euro;</button>
+                </a>
 
             </p>
-        </li>{{item.promo.promoprijs}}
+        </li>
     {% endfor %}
     <ul>
     </div>

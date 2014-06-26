@@ -127,6 +127,10 @@ header {
     font-family: akaDora;
     color: darkslategray;
 }
+.pizzahead > .label {
+    font-family: Arial, sans-serif, helvetica;
+    font-size: 16px;
+}
 .thanx {
     font-family: akaDora;
     color: darkslategray;

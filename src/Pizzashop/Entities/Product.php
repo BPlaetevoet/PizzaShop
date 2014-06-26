@@ -29,7 +29,12 @@ class Product{
      * @Column(type="float", name="prijs", nullable=false)
      */
     protected $prijs;
-  
+    /**
+     * 
+     * @OneToMany(targetEntity="Promo", mappedBy="product", indexBy="id")
+     * @var promoprijs[]
+     */
+    protected $promo;
     
     public function __construct($naam, $prijs){
         $this->naam = $naam;
@@ -54,7 +59,9 @@ class Product{
     public function getPrijs(){
         return $this->prijs;
     }
-
+    public function getPromo(){
+        return $this->promo;
+    }
     public function setNaam($naam){
         $this->naam = $naam;
     }

@@ -15,7 +15,7 @@ class Promo {
      */
     protected $id;
     /**
-    * @ManyToOne(targetEntity="Product")
+    * @ManyToOne(targetEntity="Product", inversedBy="promos")
     * @JoinColumn(name="product_id", referencedColumnName="id")
     */
     protected $product;
