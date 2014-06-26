@@ -12,10 +12,7 @@ class BestelService{
         $lijst = BestellingDao::getAll($mgr);
         return $lijst;
     }
-    public function getPopularItems($mgr){
-        $lijst = BestellingDao::getPopularItems($mgr);
-        return $lijst;
-    }
+    
     public function addBestelling($mgr, $klant, $bestelItems){
         $bestelling = BestellingDao::addBestelling($mgr, $klant, $bestelItems);
         return $bestelling;

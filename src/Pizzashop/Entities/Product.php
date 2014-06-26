@@ -29,6 +29,7 @@ class Product{
      * @Column(type="float", name="prijs", nullable=false)
      */
     protected $prijs;
+  
     
     public function __construct($naam, $prijs){
         $this->naam = $naam;
@@ -53,6 +54,7 @@ class Product{
     public function getPrijs(){
         return $this->prijs;
     }
+
     public function setNaam($naam){
         $this->naam = $naam;
     }

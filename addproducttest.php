@@ -1,15 +1,21 @@
 <?php
 
 require_once 'bootstrap.php';
-
+use Pizzashop\Entities\Promo;
 use Pizzashop\Entities\Product;
 use Pizzashop\Data\ProductDao;
 use Pizzashop\Business\ProductService;
 use Doctrine\Common\Util\Debug;
 
-$naam = "Frutti di Mare";
-$prijs_small = 9.5;
-$prijs_large = 16.5;
-$samenstelling = array("zeevruchten", "ajuin");
-$pizza = ProductService::addProduct($mgr, $naam, $prijs_small, $prijs_large, $samenstelling);
+$pizza = ProductDao::getAllAndPromos($mgr);
+print '<pre>';
+Debug::dump($pizza);
+print '</pre>';
+
+//
+//$naam = "Hawai";
+//$prijs = 11;
+//$prijs = 16.5;
+//$samenstelling = array("gegrilde kip", "ananas", "ham");
+//$pizza = ProductService::addProduct($mgr, $naam, $prijs, $samenstelling);
 Debug::dump($pizza);

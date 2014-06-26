@@ -15,7 +15,8 @@ $isDevMode = true;
 $paths = array(__DIR__.'/src/PizzaShop/Entities/',__DIR__.'/src/Pizzashop/Business/');
 $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
 $loader = new Twig_Loader_Filesystem('src/Pizzashop/Presentation');
-$twig = new Twig_Environment($loader);
+$twig = new Twig_Environment($loader, array('debug'=>true));
+$twig->addExtension(new Twig_Extension_Debug());
 /* SQL logger */
 // $Logger = new Doctrine\DBAL\Logging\EchoSQLLogger();
 // $config->setSQLLogger($logger);

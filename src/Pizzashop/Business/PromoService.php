@@ -1,5 +1,5 @@
 <?php
-//PromoServcie.php
+//PromoService.php
 namespace Pizzashop\Business;
 
 use Pizzashop\Data\PromoDao;
@@ -29,8 +29,12 @@ class PromoService{
         $lijst = PromoDao::getPromosVanPeriode($mgr, $begindatum, $einddatum);
         return $lijst;
     }
-    public function getHuidigePromos($mgr, $datum){
-        $lijst = PromoDao::getHuidigePromos($mgr, $datum);
+    public function getHuidigePromos($mgr){
+        $lijst = PromoDao::getHuidigePromos($mgr);
+        return $lijst;
+    }
+    public function getVerwachtePromos($mgr){
+        $lijst = PromoDao::getVerwachtePromos($mgr);
         return $lijst;
     }
 }

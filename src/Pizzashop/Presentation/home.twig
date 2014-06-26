@@ -4,25 +4,34 @@
 <div class='container'>
 <h1>VDAB Pizzeria</h1>
 <p>&nbsp;</p>
-<div class="col-sm-4">
-    <ul class="pizza">Populaire gerechten
-{% for item in bestellijst %}
-    <li class="pizzalijst">{{item.naam}} vanaf {{item.prijs}}
-    </li>
-{% endfor %}
-<ul>
-</div>
-<div class="col-sm-4">
-    <ul class="pizza">Laatste recensies
-        {% for recensie in recensielijst %}
-            <li>{{ recensie.titel }} <br>
-                geschreven door {{ recensie.voornaam }}
-            </li>
-        {% endfor %}
-    </ul>
-</div>
-<div class="col-sm-4">
-    {% include 'cartItems.template.twig' %}
+<div class="container-xs-height pizzavlag">
+    <div class="row row-xs-height ">
+        <div class="col-sm-4 col-xs-height pizzagreen">
+            <h2 class="pizzahead">Populaire gerechten</h2>
+                <ul>
+                {% for item in bestellijst %}
+                    <li class="items">{{item[0].product.naam}} vanaf {{item[0].product.prijs}}
+                        <br><span class="ingredients">{% for ingredient in item[0].product.samenstelling %}
+                        {{ ingredient.i_naam }}{% if not loop.last %} , {% endif %}
+                        {% endfor %}</span>
+                    </li>
+                {% endfor %}
+                <ul>
+        </div>
+        <div class="col-sm-4 col-xs-height pizzawhite">
+            <h2 class="pizzahead">Laatste Recensies</h2>
+            <ul class="pizza">
+            {% for recensie in recensielijst %}
+                <li>{{ recensie.titel }} <br>
+                    geschreven door {{ recensie.voornaam }}
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        <div class="col-sm-4 col-xs-height pizzared">
+            {% include 'cartItems.template.twig' %}
+        </div>
+    </div>
 </div>
 </div>
 {% endblock content %}

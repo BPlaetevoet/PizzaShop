@@ -30,8 +30,26 @@ class PromoDao{
         $lijst = $query->getResult();
         return $lijst;
     }
-    public function getHuidigePromos($mgr, $datum){
-        $query = $mgr->createQuery('select p from Pizzashop\\Entities\\Promo p where '.$datum.' between p.begindatum AND p.einddatum');
+    public function getHuidigePromos($mgr){
+        $qb = $mgr->createQueryBuilder();
+        $qb->select('p')
+                ->from('Pizzashop\\Entities\\Promo', 'p')
+                ->where(' :today BETWEEN p.begindatum AND p.einddatum')
+                ->setParameter('today', new \DateTime('NOW'))
+                ;
+        $query = $qb->getQuery();
+        $lijst = $query->getResult();
+        return $lijst;
+    }
+    public function getVerwachtePromos($mgr){
+        $qb = $mgr->createQueryBuilder();
+        $qb->select('p')
+                ->from('Pizzashop\\Entities\\Promo', 'p')
+                ->where(' :today < p.begindatum')
+                ->setParameter('today', new \DateTime('NOW'))
+                ->orderBy('p.begindatum');
+        
+        $query = $qb->getQuery();
         $lijst = $query->getResult();
         return $lijst;
     }

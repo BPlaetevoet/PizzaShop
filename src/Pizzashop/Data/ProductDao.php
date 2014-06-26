@@ -60,5 +60,19 @@ class ProductDao{
         $mgr->flush();
         return $product;
     }
+    
+    public function getAllAndPromos($mgr){
+        $qb = $mgr->createQueryBuilder();
+        $qb->select('p')
+                ->addselect('b.promoprijs')
+                ->from('Pizzashop\\Entities\\Product', 'p')
+                ->join('Pizzashop\\Entities\\Promo', 'b')
+                ->where($qb->expr()->eq('p.id', 'b.product'))
+                ->andwhere(' :today BETWEEN b.begindatum AND b.einddatum' )
+                ->setParameter('today', new \DateTime('NOW'));
+        $query = $qb->getQuery();
+        $lijst =$query->getResult();
+        return $lijst;
+    }
 }
 

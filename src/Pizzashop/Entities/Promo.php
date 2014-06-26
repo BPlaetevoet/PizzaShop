@@ -20,6 +20,7 @@ class Promo {
     */
     protected $product;
     /**
+     * 
      * @Column(type="float", name="promoprijs", nullable=false)
      */
     protected $promoprijs;

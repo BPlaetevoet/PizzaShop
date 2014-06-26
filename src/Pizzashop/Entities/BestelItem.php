@@ -18,7 +18,7 @@ class BestelItem{
     * @ManyToOne(targetEntity="Product")
     * @JoinColumn(name="product_id", referencedColumnName="id")
     */
-    protected $productId;
+    protected $product;
     /**
     * @ManyToOne(targetEntity="Bestelling", inversedBy="items")
     * @JoinColumn(name="order_id", nullable=false, onDelete="CASCADE", referencedColumnName="id")
@@ -33,8 +33,8 @@ class BestelItem{
     */
     protected $b_prijs;
     
-    public function __construct($productId, $aantal, $b_prijs, $bestelling){
-        $this->productId = $productId;
+    public function __construct($product, $aantal, $b_prijs, $bestelling){
+        $this->product = $product;
         $this->aantal = $aantal;
         $this->b_prijs = $b_prijs;
         $this->bestelling = $bestelling;
@@ -42,8 +42,8 @@ class BestelItem{
     public function getId(){
         return $this->id;
     }
-    public function getProductId(){
-        return $this->productId;
+    public function getProduct(){
+        return $this->product;
     }
     public function getAantal(){
         return $this->aantal;
@@ -54,8 +54,8 @@ class BestelItem{
     public function getBestelling(){
         return $this->bestelling;
     }
-    public function setProductId($productId){
-        $this->productId = $productId;
+    public function setProduct($product){
+        $this->product = $product;
     }
     public function setAantal($aantal){
         $this->aantal = $aantal;

@@ -14,13 +14,7 @@ class BestellingDao{
         $lijst = $mgr->getRepository('Pizzashop\\Entities\\Bestelling')->findAll();
         return $lijst;
     }
-    public function getPopularItems($mgr){
-        $qb = $mgr->createQueryBuilder();
-        $qb->select ('b.product')
-                ->from('Pizzashop\\Entities\\Bestelling')
-                ->groupBy('b.product');
-                
-    }
+    
     public function addBestelling($mgr, $klant, $bestelItems){
         $bestelling = new Bestelling($klant);
         $bedrag = 0;

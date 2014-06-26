@@ -6,6 +6,7 @@ use Pizzashop\Business\PlaatsService;
 use Pizzashop\Business\ProductService;
 use Pizzashop\Business\MemberService;
 use Pizzashop\Business\IngredientService;
+use Pizzashop\Business\PromoService;
 
 
 use Doctrine\Common\Util\Debug;
@@ -31,12 +32,20 @@ if (isset($_GET["page"])){
 }
  switch ($page){
         case "pizzas" :
+            $promolijst = PromoService::getHuidigePromos($mgr);
             $lijst = ProductService::getAll($mgr);
+            $twigDataArray["promolijst"] = $promolijst;
             $twigDataArray["lijst"] = $lijst;
+//            
+//            print "<pre>";
+//            Debug::dump($promolijst);
+//            print '</pre>';
         break;
         case "promoties" :
-            $lijst = PromoService::getPromos($mgr);
-            $twigDataArray["promolijst"] = $promolijst;
+            $promosverwacht = PromoService::getVerwachtePromos($mgr);
+            $lijst = PromoService::getHuidigePromos($mgr);
+            $twigDataArray["promosverwacht"] = $promosverwacht;
+            $twigDataArray["promolijst"] = $lijst;
         case "registreer" : 
             include 'formcontroller.php';
         case "afrekenen" :
@@ -46,10 +55,8 @@ if (isset($_GET["page"])){
             }
         break;
         case "home" :
-            $bestellijst = Pizzashop\Business\BestelService::getPopularItems($mgr);
+            $bestellijst = Pizzashop\Business\BestelItemService::getPopularItems($mgr);
             $twigDataArray['bestellijst']=$bestellijst;
-            
-            
      }
 
 $twigDataArray["active_page"]=$page;
