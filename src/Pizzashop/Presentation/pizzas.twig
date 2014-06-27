@@ -3,7 +3,7 @@
 {% block content %}
 <div class='container'>
     <section class='producten'>
-    <h1 class="pizzahead">Menukaart</h1>
+    <h1 class="pizzahead text-center">Menukaart</h1>
     <p>&nbsp;</p>
     <div class="col-md-6">
         <ul>
@@ -23,10 +23,13 @@
                 {% endfor %}
          
                 
-                
+            <form action="updatecart.php?action=add" method="post">
+                <input type="hidden" name="pizza" id="pizza" value="{{ item["id"] }}">
+                <input type="hidden" name="prijs" id="prijs" value="{{ item["prijs"]}}">
                
-                <a href="updatecart.php?action=add&pizza={{ item["id"] }}">
-                <button class="btn pizza-btn" action="updatecart.php?action=add&pizza={{item["id"]}}" method="post">{{ item["prijs"]}}&euro;</button>
+{#                <a href="updatecart.php?action=add&pizza={{ item["id"] }}">#}
+                <button class="btn pizza-btn" action="submit">{{ item["prijs"]}}&euro;</button>
+            </form>
                 </a>
 
             </p>

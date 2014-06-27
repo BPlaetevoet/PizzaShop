@@ -3,16 +3,22 @@
     <div class="container container-xs-height">
         <div class="row row-xs-height">
             <div class="col-xs-4 col-xs-height">
-                <ul>
-                    {% for item in navigation_bar %}
-                        <li><a href="{{item[0]}}">{{ item[1] }}</a>
-                    {% endfor %}
+                <h3 class="pizzahead">Credits</h3>
+                <p>Bart Plaetevoet<br>
+                    Student PHP Ontwikkelaar<br>
+                   VDAB 2014
+                </p>
+                <ul id="social-networking">
+                    <a href="https://twitter.com/BPlaetevoet"><li class="twitter"></li></a>
+                    <a href="https://www.facebook.com/bart.plaetevoet"><li class="facebook"></li></a>
+                    <a href="http://be.linkedin.com/pub/bart-plaetevoet/95/8b2/921"><li class="linkedin"></li></a>
                 </ul>
+
             </div>
                 <div class="col-xs-4 col-xs-height">
                     <h3 class="pizzahead">Tags</h3>
                     {% for ingredient in ingredientlijst %}
-                        <a href="index.php?page=pizzas&ingredient={{ ingredient.i_naam }}">{{ ingredient.i_naam }}</a> {% if not loop.last %}, {% endif %}
+                        <a class="tags" href="index.php?page=pizzas&ingredient={{ ingredient.i_naam }}">{{ ingredient.i_naam }}</a> {% if not loop.last %}, {% endif %}
                         {% endfor %}
                 </div>
                 <div class="col-xs-4 col-xs-height">

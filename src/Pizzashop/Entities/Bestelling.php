@@ -58,7 +58,7 @@ class Bestelling{
         return $this->b_datum;
     }
     public function getItems(){
-        return $this->items->to_array();
+        return $this->items;
     }
     public function getItem($item){
         return $this->items[$item];

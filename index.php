@@ -7,6 +7,9 @@ use Pizzashop\Business\ProductService;
 use Pizzashop\Business\MemberService;
 use Pizzashop\Business\IngredientService;
 use Pizzashop\Business\PromoService;
+use Pizzashop\Business\KlantService;
+use Pizzashop\Business\BestelService;
+use Pizzashop\Business\GastenboekService;
 
 
 use Doctrine\Common\Util\Debug;
@@ -25,49 +28,27 @@ if (isset($_SESSION["loginerror"])){ // problemen bij het inloggen opvangen en t
     $twigDataArray["loginerror"]=$_SESSION['loginerror'];
 }
 $page = "home"; 
-
+if(isset($_GET["error"])){
+    $twigDataArray["error"]= $_GET["error"];
+}
 
 if (isset($_GET["page"])){
     $page = $_GET["page"];
 }
  switch ($page){
         case "pizzas" :
-            $pizzas = ProductService::getAll($mgr);
-            $lijst = array();
-            $today = new DateTime('NOW');
-            foreach($pizzas as $pizza){
-                $item = array(
-                    'id'=>$pizza->getId(), 
-                    'naam'=>$pizza->getNaam(),
-                    'samenstelling'=>array($pizza->getSamenstelling()),
-                    'prijs'=>$pizza->getPrijs(),
-                    'promo'=>false
-                    );
-                foreach($pizza->getPromo() as $promotie){
-                    if ($today > $promotie->getBegindatum() && $today < $promotie->getEinddatum()){
-                        $item['prijs']= $promotie->getPromoprijs();
-                        $item['promo']= true;
-                    }
-                }
-                    print '<pre>';
-    Debug::dump($item);
-    print '</pre><br><br>';
-                array_push($lijst, $item);
-            }
-//            $promolijst = PromoService::getHuidigePromos($mgr);
-  //          $lijst = ProductService::getAll($mgr);
-//            $twigDataArray["promolijst"] = $promolijst;
+            $lijst = ProductService::getCurrentLijst($mgr);
             $twigDataArray["lijst"] = $lijst;
-            
-//            print "<pre>";
-//            Debug::dump($lijst);
-//            print '</pre>';
         break;
         case "promoties" :
             $promosverwacht = PromoService::getVerwachtePromos($mgr);
             $lijst = PromoService::getHuidigePromos($mgr);
             $twigDataArray["promosverwacht"] = $promosverwacht;
             $twigDataArray["promolijst"] = $lijst;
+        break;
+        case "gastenboek" :
+            $gblijst = GastenboekService::getAll($mgr);
+            $twigDataArray["gblijst"]=$gblijst;
         case "registreer" : 
             include 'formcontroller.php';
         case "afrekenen" :
@@ -76,9 +57,26 @@ if (isset($_GET["page"])){
                 include 'formcontroller.php';
             }
         break;
+        case "bedankt" :
+            if(isset($_GET["order"])){
+                $bestelling = BestelService::getById($mgr, $_GET["order"]);
+                $twigDataArray["bestelling"] = $bestelling;
+            }
+            if (isset($_GET["fout"]) && ($_GET["fout"]==1)){
+                if (isset($_GET["klant"])){
+                    $klantId = $_GET["klant"]; 
+                    $klant = KlantService::getById($mgr, $klantId);
+                    $twigDataArray["klant"]= $klant;
+                }
+                $twigDataArray["fout"]="E-mail adres is al geregistreerd";
+            }
         case "home" :
+            $gblijst = GastenboekService::getLatestEntrys($mgr);
+            $promolijst = PromoService::getHuidigePromos($mgr);
             $bestellijst = Pizzashop\Business\BestelItemService::getPopularItems($mgr);
+            $twigDataArray["gblijst"] = $gblijst;
             $twigDataArray['bestellijst']=$bestellijst;
+            $twigDataArray['promolijst']=$promolijst;
      }
 
 $twigDataArray["active_page"]=$page;
@@ -86,10 +84,11 @@ if (isset($_SESSION["cartItems"])){
     $countItems = 0;
     $totaal = 0;
     $cartItems = array();
-    foreach ($_SESSION["cartItems"] as $item=>$aantal){
+    foreach ($_SESSION["cartItems"] as $item => $value){
         $product = ProductService::getById($mgr, $item);
-        $countItems += 1*$aantal;
-        $prijs = $product->getPrijs();
+        $countItems += 1*$value["aantal"];
+        $prijs = $value["prijs"];
+        $aantal = $value["aantal"];
         $totaal += $prijs*$aantal;
         array_push($cartItems, array($product, $aantal, $prijs*$aantal));
     }

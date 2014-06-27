@@ -3,8 +3,10 @@
 {% if cartItems %}<h2 class="pizzahead">Uw winkelwagentje :</h2>
                 <ul class="col-xs-6 pull-right pizzalijst">
                 {% for item in cartItems %}
-                     <li class="pizzalijst">{{item[1]}} x {{ item[0].naam }} - {{ item[0].prijs }} &euro;
-                         
+                     <li class="pizzalijst">{{item[1]}} x {{ item[0].naam }} - {{ item[2] }} &euro;
+                         &nbsp;
+                         <a class="delete" href="updatecart.php?action=remove&pizza={{ item[0].id }}">
+                            Verwijder</a>
                 {% endfor %}
                 <li> Totaal : {{ totaal }} &euro;
                </ul>

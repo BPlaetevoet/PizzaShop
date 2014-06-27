@@ -17,7 +17,7 @@ if (isset($_SESSION["klant"])&&(isset($_SESSION["cartItems"]))){
     if($bestelling){
         // Bestelling gelukt doorverwijzen naar bevestigingspagina
         unset($_SESSION["cartItems"]);
-        header('location: index.php?page=bedankt');
+        header('location: index.php?page=bedankt&order='.$bestelling->getId());
     }else{
         // Er ging iets fout
     }

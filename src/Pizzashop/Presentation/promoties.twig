@@ -3,6 +3,7 @@
 {% block content %}
     <div class="container">
         <h1 class="pizzahead text-center"> Promoties</h1>
+        <section id="promos" class="col-sm-8 col-sm-offset-2">
         <h4> Huidige promoties :</h4>
             {% for promo in promolijst %}
                 <blockquote><img class="pizza-img" src="images/{{promo.product.naam}}.jpg">
@@ -23,6 +24,6 @@
                 </blockquote>
             {% endfor %}
         
-        
+        </section>
     </div>
 {% endblock %}

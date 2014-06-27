@@ -1,5 +1,4 @@
 {# afrekenen.twig #}
-
 {% extends 'BaseLayout.template.twig' %}
 {% set page='afrekenen' %}
 {% block content %}
@@ -8,7 +7,10 @@
             <h2 class="pizzahead">Uw gekozen producten</h2>
             <ul class="pizzalijst">
                 {% for item in cartItems %}
-                    <li class="pizzalijst">{{ item[1] }} x {{ item[0].naam }} - {{ item[0].prijs }} &euro;
+                    <li class="pizzalijst">{{ item[1] }} x {{ item[0].naam }} - {{ item[2] }} &euro; 
+                        &nbsp;
+                        <a class="delete" href="updatecart.php?action=remove&pizza={{ item[0].id }}">
+                            Verwijder</a>
                 {% endfor %}
                 <li> Totaal : {{ totaal }} &euro;
             </ul>
@@ -19,10 +21,13 @@
         <p> Naam : {{ klant.voornaam }} {{ klant.naam }}<br />
             Adres : {{ klant.straat }} {{ klant.nr }} {% if klant.bus %} Bus {{ klant.bus }} {% endif %}<br />
             Gemeente : {{ klant.plaats.postcode }} {{ klant.plaats.gemeente }}<br />
-            Tel.: {{ klant.telefoonnr }}<br />
+            Tel.: 0{{ klant.telefoonnr }}<br />
+            
         </p>
-        <a href="plaatsbestelling.php"><button class="btn pizza-btn">Bevestigen</button></a>
+        <a href="plaatsbestelling.php"><button class="btn pizza-btn pull-left">Bevestigen</button></a>
+        
         <br>
+        &nbsp;
         <br>
         {% else %}
             {% if option == 'login' %}
@@ -38,6 +43,7 @@
 
             {% endif %}
     {% endif %}
+    <p>&nbsp;</p>
     </div>
     </div>
 {% endblock %}

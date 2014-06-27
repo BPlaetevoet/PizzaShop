@@ -6,7 +6,7 @@
             {% include 'topmenu.template.twig' %}
             </div>
             <div class="pull-right">
-        {% if login %}Welkom {{ klant.voornaam }} <a href="login.php?actie=uitloggen"><button class="btn pizza-btn">Uitloggen</button></a>
+        {% if login %}Welkom {{ klant.voornaam }} <a class="logoff" href="login.php?actie=uitloggen">Uitloggen{#<button class="btn pizza-btn">Uitloggen</button>#}</a>
         {% else %}
             <a href="index.php?page=login"><button class="btn pizza-btn">Inloggen</button></a>
             <a href="index.php?page=registreer"><button class="btn pizza-btn">Registreren</button></a>

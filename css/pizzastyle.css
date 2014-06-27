@@ -131,6 +131,31 @@ header {
     font-family: Arial, sans-serif, helvetica;
     font-size: 16px;
 }
+a.delete, a.logoff{
+    background-color: #F0AD4E;
+    display:inline-block;
+    padding: 0.2em 0.6em 0.3em;
+    font-size:75%;
+    font-weight: bold;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space:no-wrap;
+    vertical-align: baseline;
+    border-radius: 0.25em;
+}
+a.delete:hover, a.logoff:hover{
+    text-decoration: none;
+    background-color: #cc6600;
+    
+}
+a.tags:nth-child(even){
+    color:yellowgreen;
+}
+a.tags:nth-child(odd){
+    color:#fff;
+}
+
 .thanx {
     font-family: akaDora;
     color: darkslategray;
@@ -170,7 +195,37 @@ li.pizzalijst >p > a > button.pizza-btn{
 .cartItems{
     text-align: right;
 }
-
+.gb-items {
+    display: inline-block;
+    width:80%;
+    padding:1.2em;
+    margin:10px ;
+}
+.gb-items .row:nth-child(odd){
+    padding: 20px;
+    background-color:#fff;
+    border-left: 2px solid darkred;
+    border-right:2px solid darkred;
+    border-bottom: 1px solid lightsalmon;
+}
+.gb-items .row:nth-child(even){
+    padding: 20px;
+    background-color: #fffaf0;
+    border-left: 2px solid darkred;
+    border-right: 2px solid darkred;
+    border-bottom: 2px solid darkred;
+}
+.gb-items .row:first-child{ 
+    border-top-left-radius:25px;
+    border-top-right-radius:25px;
+    border-top: 2px solid darkred;
+    
+    border-bottom: 1px solid lightsalmon;
+}
+.gb-items  .row:last-child{    
+    border-bottom-left-radius:20px;
+    border-bottom-right-radius: 20px;
+}
 /******************* Formulieren  & Buttons ***********************************/
 .pizzaform {
     padding: 25px 0;
@@ -188,10 +243,13 @@ li.pizzalijst >p > a > button.pizza-btn{
 }
 .pizza-btn{
     background-color:#cc6600;
-    margin: 0px 0px;
+    color: #fff;
+    margin: 0px 5px;
+    float: right;
 }
 .pizza-btn:hover{
     background-color:#994d00;
+    color: #fff;;
 }
 a .pizza-btn, a:hover .pizza-btn {
     color:white;
@@ -201,6 +259,7 @@ footer{
     padding:20px;
     background-color: #282828;
     color: white;
+    margin-top: 25px;
 }
 footer .pizzahead{
     color: white;
@@ -208,3 +267,23 @@ footer .pizzahead{
 address >ul {
     list-style-type: none;
 }
+/************************Social networking icons******************************/
+ul#social-networking a li{
+    background-image: url('../images/social-media-icons.png');
+    background-size: 330px 60px;
+    height: 30px;
+    width: 30px;
+   /* Placing the icons */
+    float: right;
+    list-style-type: none;
+    margin-right: 2%;
+    float: left;	
+}
+ul#social-networking a li.linkedin{background-position: -180px 0;}
+ul#social-networking a li.linkedin:hover {background-position: -180px -30px;}
+
+ul#social-networking a li.facebook {background-position: 0px 0px;}
+ul#social-networking a li.facebook:hover{background-position: 0 -30px;}
+
+#social-networking a li.twitter{background-position: -240px 0px;}
+#social-networking a li.twitter:hover {background-position: -240px -30px;}

@@ -61,23 +61,27 @@ class ProductDao{
         return $product;
     }
     
-    public function getAllAndPromos($mgr){
-        
-        $query = $mgr->createQuery('select  p,  (case when b.product = p.id then p.prijs = b.promoprijs else p.prijs = p.prijs)as prijs from Pizzashop\\Entities\\Product p JOIN Pizzashop\\Entities\\Promo b');
-
-//        $qb = $mgr->createQueryBuilder();
-//        $qb->select('p')
-//                
-//                ->from('Pizzashop\\Entities\\Product', 'p');
-//                
-//                ->where($qb->expr()->eq('p.id', 'b.product'))
-//                ->addselect('b.promoprijs')
-//                ->join('Pizzashop\\Entities\\Promo', 'b')
-//                ->andwhere(' :today BETWEEN b.begindatum AND b.einddatum' )
-//                ->setParameter('today', new \DateTime('NOW'));
-//        $query = $qb->getQuery();
-        $lijst =$query->getResult();
-        return $lijst;
+    public function getCurrentLijst($mgr){
+        $pizzas = ProductDao::getAll($mgr);
+            $lijst = array();
+            $today = new \DateTime('NOW');
+            foreach($pizzas as $pizza){
+                $item = array(
+                    'id'=>$pizza->getId(), 
+                    'naam'=>$pizza->getNaam(),
+                    'samenstelling'=>array($pizza->getSamenstelling()),
+                    'prijs'=>$pizza->getPrijs(),
+                    'promo'=>false
+                    );
+                foreach($pizza->getPromo() as $promotie){
+                    if ($today > $promotie->getBegindatum() && $today < $promotie->getEinddatum()){
+                        $item['prijs']= $promotie->getPromoprijs();
+                        $item['promo']= true;
+                    }
+                }
+                 array_push($lijst, $item);
+            }
+            return $lijst;
     }
 }
 

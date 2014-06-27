@@ -26,10 +26,14 @@ class MemberDao{
         }
     }
     public function addMember($mgr, $mail, $password, $klant){
-        $member = new Member($mail, $password, $klant);
-        $mgr->persist($member);
-        $mgr->flush();
-        return $member;
+        $mailbestaat = MemberDao::getByMail($mgr, $mail);
+        if($mailbestaat){ return NULL;
+        }else{
+            $member = new Member($mail, $password, $klant);
+            $mgr->persist($member);
+            $mgr->flush();
+            return $member;
+        }
     }
     public function updateMember($mgr, $id, $naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr, $mail, $password){
         $member = MemberDao::getById($mgr, $id);

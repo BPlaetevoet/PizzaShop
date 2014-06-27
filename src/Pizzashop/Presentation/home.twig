@@ -2,7 +2,7 @@
 {% extends 'BaseLayout.template.twig' %}
 {% block content %}
 <div class='container'>
-<h1>VDAB Pizzeria</h1>
+<h1 class="pizzahead text-center">VDAB Pizzeria</h1>
 <p>&nbsp;</p>
 <div class="container-xs-height pizzavlag">
     <div class="row row-xs-height ">
@@ -10,7 +10,7 @@
             <h2 class="pizzahead">Populaire gerechten</h2>
                 <ul>
                 {% for item in bestellijst %}
-                    <li class="items">{{item[0].product.naam}} vanaf {{item[0].product.prijs}}
+                    <li class="items">{{item[0].product.naam}}
                         <br><span class="ingredients">{% for ingredient in item[0].product.samenstelling %}
                         {{ ingredient.i_naam }}{% if not loop.last %} , {% endif %}
                         {% endfor %}</span>
@@ -21,15 +21,25 @@
         <div class="col-sm-4 col-xs-height pizzawhite">
             <h2 class="pizzahead">Laatste Recensies</h2>
             <ul class="pizza">
-            {% for recensie in recensielijst %}
-                <li>{{ recensie.titel }} <br>
-                    geschreven door {{ recensie.voornaam }}
+            {% for item in gblijst %}
+                <li>van {{ item.naam }}<br><sub><em>{{item.boodschap}}</em></sub>
                 </li>
             {% endfor %}
             </ul>
         </div>
         <div class="col-sm-4 col-xs-height pizzared">
+            {% if cartItems %}
             {% include 'cartItems.template.twig' %}
+            {% else %}
+                <h2 class="pizzahead">Onze Promo's</h2>
+                <ul class="pizza">
+                 {% for item in promolijst %}
+                     <li>Nog tot {{item.einddatum|date('d M Y')}}<br>
+                         <img class="pizza-img" src="images/{{item.product.naam}}.jpg"><br>
+                     {{ item.product.naam }} : {{item.promoprijs}}&euro;
+                {% endfor %}
+                     </ul>
+                     {% endif %}
         </div>
     </div>
 </div>

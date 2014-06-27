@@ -36,4 +36,8 @@ class ProductService{
         $product = ProductDao::updateProduct($mgr, $id, $naam, $samenstelling, $prijs);
         return $product;
     }
+    public function getCurrentLijst($mgr){
+        $lijst = ProductDao::getCurrentLijst($mgr);
+        return $lijst;
+    }
 }
