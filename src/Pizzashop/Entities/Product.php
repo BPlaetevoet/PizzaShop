@@ -22,7 +22,8 @@ class Product{
     protected $naam;
     /**
      * @var ArrayCollection
-     * @OneToMany(targetEntity="Ingredient", mappedBy="product", cascade={"persist"})
+     * @ManyToMany(targetEntity="Ingredient", mappedBy="product", cascade={"persist"})
+     * @JoinTable(name="ingredient_product")
      */
     protected $samenstelling;
     /**
@@ -54,7 +55,12 @@ class Product{
         return $this->samenstelling[$ingredient];
     }
     public function addIngredient(ingredient $ingredient){
-        $this->samenstelling[] = $ingredient;
+        if (!$this->samenstelling->contains($ingredient)){
+            $this->samenstelling->add($ingredient);
+            $ingredient->addProduct($this);
+        }
+        return $this;
+//        $this->samenstelling[] = $ingredient;
     }
     public function getPrijs(){
         return $this->prijs;

@@ -12,8 +12,8 @@ use Doctrine\Common\Util\Debug;
 
 if (isset($_SESSION["klant"])&&(isset($_SESSION["cartItems"]))){
     $items = $_SESSION["cartItems"];
-    $klant = KlantService::getById($mgr, $_SESSION["klant"]);
-    $bestelling = BestelService::addBestelling($mgr, $klant, $items);
+    $klant = (new KlantService)->getById($mgr, $_SESSION["klant"]);
+    $bestelling = (new BestelService)->addBestelling($mgr, $klant, $items);
     if($bestelling){
         // Bestelling gelukt doorverwijzen naar bevestigingspagina
         unset($_SESSION["cartItems"]);
@@ -21,10 +21,9 @@ if (isset($_SESSION["klant"])&&(isset($_SESSION["cartItems"]))){
     }else{
         // Er ging iets fout
     }
-//    Debug::dump($klant);
+
 }else{
     header('location: index.php');
-    
 }
 
 

@@ -1,12 +1,12 @@
 {# home.twig #}
-{% extends 'BaseLayout.template.twig' %}
+{% extends 'baselayout.html.twig' %}
 {% block content %}
 <div class='container'>
 <h1 class="pizzahead text-center">VDAB Pizzeria</h1>
 <p>&nbsp;</p>
 <div class="container-xs-height pizzavlag">
     <div class="row row-xs-height ">
-        <div class="col-sm-4 col-xs-height pizzagreen">
+        <div class="col-sm-4 col-xs-6 col-xs-height pizzagreen">
             <h2 class="pizzahead">Populaire gerechten</h2>
                 <ul>
                 {% for item in bestellijst %}
@@ -18,7 +18,7 @@
                 {% endfor %}
                 <ul>
         </div>
-        <div class="col-sm-4 col-xs-height pizzawhite">
+        <div class="col-sm-4 col-xs-height pizzawhite hidden-xs">
             <h2 class="pizzahead">Laatste Recensies</h2>
             <ul class="pizza">
             {% for item in gblijst %}
@@ -27,19 +27,15 @@
             {% endfor %}
             </ul>
         </div>
-        <div class="col-sm-4 col-xs-height pizzared">
-            {% if cartItems %}
-            {% include 'cartItems.template.twig' %}
-            {% else %}
-                <h2 class="pizzahead">Onze Promo's</h2>
+        <div class="col-sm-4 col-xs-6 col-xs-height pizzared">
+            <h2 class="pizzahead">Onze Promo's</h2>
                 <ul class="pizza">
                  {% for item in promolijst %}
                      <li>Nog tot {{item.einddatum|date('d M Y')}}<br>
                          <img class="pizza-img" src="images/{{item.product.naam}}.jpg"><br>
                      {{ item.product.naam }} : {{item.promoprijs}}&euro;
                 {% endfor %}
-                     </ul>
-                     {% endif %}
+                </ul>
         </div>
     </div>
 </div>

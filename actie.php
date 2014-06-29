@@ -7,17 +7,18 @@ use Pizzashop\Business\GastenboekService;
 
 define('MY_EMAIL', 'bart.plaetevoet@telenet.be');
 define('EMAIL_SUBJECT', 'pizzashop contact-formulier');
+$validator = new ValidationController();
 if(isset($_POST["page"])){
-    $page = ValidationController::validate($_POST["page"]);
+    $page = $validator->validate($_POST["page"]);
 }
 if(isset($_POST["naam"])&&(!empty($_POST["naam"]))){
-    $naam = ValidationController::validate($_POST["naam"]);
+    $naam = $validator->validate($_POST["naam"]);
 }else{ $errors["naam"]= 1; }
 if(isset($_POST["mail"])&&(!empty($_POST["mail"]))){
-    $mail = ValidationController::validate($_POST["mail"]);
+    $mail = $validator->validate($_POST["mail"]);
 }else{ $errors["mail"]=1;}
 if(isset($_POST["boodschap"])&&(!empty($_POST["boodschap"]))){
-    $boodschap = ValidationController::validate($_POST["boodschap"]);
+    $boodschap = $validator->validate($_POST["boodschap"]);
 }else{ $errors["boodschap"]=1;}
 
 if(!empty($errors)){
@@ -35,7 +36,7 @@ if(empty($errors)){
         }
     } 
     if($page=="gastenboek"){
-        $entry = GastenboekService::addEntry($mgr, $naam, $mail, $boodschap);
+        $entry = (new GastenboekService)->addEntry($mgr, $naam, $mail, $boodschap);
         if($entry){
             header('location: index.php?page=gastenboek&succes=1');
         }else{

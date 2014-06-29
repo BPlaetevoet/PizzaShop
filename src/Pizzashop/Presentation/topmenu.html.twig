@@ -1,12 +1,12 @@
-{# topmenu.template.twig #}
+{# topmenu.html.twig #}
     {% set navigation_bar = [['home', 'Home'], ['pizzas', 'Pizzas'], ['promoties', 'Promoties'], ['contact', 'Contact'], ['gastenboek', 'Gastenboek']] -%}
-
-    <nav class="nav-tabs" role="navigation">
+<nav class="nav-tabs" role="navigation" id="hoofdmenu">
     <ul class="nav nav-tabs">
         {% for item in navigation_bar %}
-            <li class='item {% if item[1] == active_page %}active{% endif %}'>
+            <li>
                 <a href='index.php?page={{ item[0] }}'>{{ item[1] }}</a>
             </li>
         {% endfor %}
     </ul>
 </nav>
+{#</div>#}

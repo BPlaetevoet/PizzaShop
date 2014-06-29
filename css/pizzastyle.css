@@ -6,8 +6,8 @@ VDAB PHP EindProject Pizzashop
 /* @font-face kit by Fonts2u */ 
 @font-face {
     font-family:"akaDora";
-    src:url("http://localhost/pizzashop/fonts/akaDora.eot?") format("eot"),
-        url("http://localhost/pizzashop/fonts/akaDora.woff") format("woff"),
+    src:url("http://localhost/pizzashop/fonts/akaDora.woff"),
+        url("http://localhost/pizzashop/fonts/akaDora.eot?") format("eot"),
         url("http://localhost/pizzashop/fonts/akaDora.ttf") format("truetype"),
         url("http://localhost/pizzashop/fonts/akaDora.svg#akaDora") format("svg");
     font-weight:normal;
@@ -20,11 +20,15 @@ body {
   color: darkslategray;
 }
 .container {
-  width: 80%;
+  width: 96%;
   margin: 0 auto;
   clear: both;
 }
-/**** zet alle li items zonder list-style-type ***/
+ul {
+    margin: 0px;
+    padding: 0px;
+  
+}
 li {
     list-style-type: none;
 }
@@ -36,24 +40,25 @@ header {
 }
 .topbar{
     background-color: #282828;
-    position:fixed;
-    z-index:10;
-    top: 0;
-    left: 0;
-    width: 100%;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
     -webkit-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
 }
 .header-content{
     margin-top:20px;
-    background-image: url(../images/pizza9.jpg);
-    background-size: 100%;
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
-    -webkit-box-shadow: 0px 0px 10px 4px rgba(119, 119, 119, 0.75);
+    background-image: url(../images/bg.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 10px 6px rgba(119, 119, 119, 0.75);
+    -webkit-box-shadow: 0px 0px 10px 6px rgba(119, 119, 119, 0.75);
 }
 /********** navigatie custom color ********************************************/
+#hoofdmenu li {
+    display: inline-block;
+    width:50%;
+    float:left;
+}
 .nav-tabs {
     border-bottom: none;
 }
@@ -66,12 +71,12 @@ header {
     background-color:#cc6600;
 }
 .pizzavlag {
+    width:100%;
     margin-bottom: 40px;
 }
 .pizzavlag li {
     paddin-top:5px;
     padding-bottom: 5px;
-    font-size: 1.2em;
 }
 .pizzagreen {
     background-color: green;
@@ -140,7 +145,7 @@ a.delete, a.logoff{
     line-height: 1;
     color: #fff;
     text-align: center;
-    white-space:no-wrap;
+    white-space:nowrap;
     vertical-align: baseline;
     border-radius: 0.25em;
 }
@@ -182,9 +187,7 @@ li.pizzalijst >p > a > button.pizza-btn{
     float: right;
 }
 .pizza-img {
-    width:200px;
-    height: 76px;
-    float: left;
+    width: 100%;
 }
 .img-logo{
     margin-left: auto;
@@ -193,7 +196,11 @@ li.pizzalijst >p > a > button.pizza-btn{
     
 }
 .cartItems{
+    margin-top: 3em;
     text-align: right;
+}
+.cartItems >h2 {
+    color: #fff;
 }
 .gb-items {
     display: inline-block;
@@ -287,3 +294,26 @@ ul#social-networking a li.facebook:hover{background-position: 0 -30px;}
 
 #social-networking a li.twitter{background-position: -240px 0px;}
 #social-networking a li.twitter:hover {background-position: -240px -30px;}
+
+/***********************  SIZE AANPASSINGEN ***********************************/
+@media(min-width: 640px){
+    /* menu fixed bovenaan vanaf 640px */
+   .topbar{
+        position:fixed;
+        z-index:10;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+    .container {
+        width:80%;
+    }
+    #hoofdmenu li{
+        width: auto;
+    }
+    .pizza-img {
+        width:200px;
+        height: 76px;
+        float: left;
+    }
+}

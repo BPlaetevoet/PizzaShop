@@ -1,0 +1,50 @@
+{# baselayout.html.twig #}
+<!DOCTYPE HTML>
+<html>
+    {% block head %}
+    <head>
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel='stylesheet' href='css/bootstrap.css' />
+        <link rel='stylesheet' href='css/pizzastyle.css' />
+        <title>PizzaShop</title>
+    </head>
+    {% endblock head %}
+    <body>
+        {% block siteheader %}
+            <header>
+                <div class="topbar">
+                    <div class="container">
+                        <div class="col-xs-12 col-sm-7">
+                            {% include 'topmenu.html.twig' %}
+                        </div>
+                        <div class="col-xs-12 col-sm-5 pull-right">
+                            {% if login %}
+                                Welkom {{ klant.voornaam }} <a class="logoff" href="login.php?actie=uitloggen">Uitloggen</a>
+                            {% else %}
+                                <a href="index.php?page=login"><button class="btn pizza-btn">Inloggen</button></a>
+                                <a href="index.php?page=registreer"><button class="btn pizza-btn">Registreren</button></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="header-content">
+                    <div class="container">
+                        <img class="img-logo img-responsive{% if cartItems %} col-sm-6{% endif %}" src="images/logo.png" />
+                        {% if cartItems %}
+                        <aside class="col-sm-6 cartItems">
+                            {% include 'cartItems.html.twig' %}
+                        </aside>
+                        {% endif %}
+                    </div>
+                </div>
+            </header>
+        {% endblock siteheader %}
+        {% block content %}
+        
+        {% endblock content %}
+        {% block footer %}
+        {% include 'footerlayout.html.twig' %}
+        {% endblock footer %}
+    </body>
+</html>

@@ -3,8 +3,6 @@
 session_start();
 
 require_once 'bootstrap.php';
-use Pizzashop\Business\ProductService;
-
 
 if (isset($_GET["action"])){
     

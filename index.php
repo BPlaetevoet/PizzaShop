@@ -19,7 +19,7 @@ if(isset($_COOKIE['pizzashop_cookie'])){
 }
 // SESSION login
 if(isset($_SESSION['login'])){
-    $member = MemberService::getById($mgr, $_SESSION['login']);
+    $member = (new MemberService)->getById($mgr, $_SESSION['login']);
     $twigDataArray["login"]= TRUE;
     $twigDataArray["klant"]= $member->getKlant();
     $_SESSION["klant"] = $member->getklant()->getId();
@@ -28,52 +28,56 @@ if (isset($_SESSION["loginerror"])){ // problemen bij het inloggen opvangen en t
     $twigDataArray["loginerror"]=$_SESSION['loginerror'];
 }
 $page = "home"; 
+// errors opvangen en meegeven
 if(isset($_GET["error"])){
     $twigDataArray["error"]= $_GET["error"];
 }
-
+// succes opvangen en meegeven
+if (isset($_GET["succes"])){
+    $twigDataArray["succes"]= $_GET["succes"];
+}
 if (isset($_GET["page"])){
     $page = $_GET["page"];
 }
  switch ($page){
         case "pizzas" :
-            $lijst = ProductService::getCurrentLijst($mgr);
+            $lijst = (new ProductService)->getCurrentLijst($mgr);
             $twigDataArray["lijst"] = $lijst;
         break;
         case "promoties" :
-            $promosverwacht = PromoService::getVerwachtePromos($mgr);
-            $lijst = PromoService::getHuidigePromos($mgr);
+            $promosverwacht = (new PromoService)->getVerwachtePromos($mgr);
+            $lijst = (new PromoService)->getHuidigePromos($mgr);
             $twigDataArray["promosverwacht"] = $promosverwacht;
             $twigDataArray["promolijst"] = $lijst;
         break;
         case "gastenboek" :
-            $gblijst = GastenboekService::getAll($mgr);
+            $gblijst = (new GastenboekService)->getAll($mgr);
             $twigDataArray["gblijst"]=$gblijst;
         case "registreer" : 
-            include 'formcontroller.php';
+            include 'FormController.php';
         case "afrekenen" :
             if (isset($_GET["option"])){
                 $twigDataArray['option'] = $_GET["option"];
-                include 'formcontroller.php';
+                include 'FormController.php';
             }
         break;
         case "bedankt" :
             if(isset($_GET["order"])){
-                $bestelling = BestelService::getById($mgr, $_GET["order"]);
+                $bestelling = (new BestelService)->getById($mgr, $_GET["order"]);
                 $twigDataArray["bestelling"] = $bestelling;
             }
             if (isset($_GET["fout"]) && ($_GET["fout"]==1)){
                 if (isset($_GET["klant"])){
-                    $klantId = $_GET["klant"]; 
-                    $klant = KlantService::getById($mgr, $klantId);
+                    $klantId = $_GET["klant"];
+                    $klant = (new KlantService)->getById($mgr, $klantId);
                     $twigDataArray["klant"]= $klant;
                 }
                 $twigDataArray["fout"]="E-mail adres is al geregistreerd";
             }
         case "home" :
-            $gblijst = GastenboekService::getLatestEntrys($mgr);
-            $promolijst = PromoService::getHuidigePromos($mgr);
-            $bestellijst = Pizzashop\Business\BestelItemService::getPopularItems($mgr);
+            $gblijst = (new GastenboekService)->getLatestEntrys($mgr);
+            $promolijst = (new PromoService)->getHuidigePromos($mgr);
+            $bestellijst = (new \Pizzashop\Business\BestelItemService)->getPopularItems($mgr);
             $twigDataArray["gblijst"] = $gblijst;
             $twigDataArray['bestellijst']=$bestellijst;
             $twigDataArray['promolijst']=$promolijst;
@@ -84,8 +88,8 @@ if (isset($_SESSION["cartItems"])){
     $countItems = 0;
     $totaal = 0;
     $cartItems = array();
-    foreach ($_SESSION["cartItems"] as $item => $value){
-        $product = ProductService::getById($mgr, $item);
+    foreach ($_SESSION["cartItems"] as $item => $value){      
+        $product = (new ProductService)->getById($mgr, $item);
         $countItems += 1*$value["aantal"];
         $prijs = $value["prijs"];
         $aantal = $value["aantal"];
@@ -98,12 +102,12 @@ if (isset($_SESSION["cartItems"])){
 }
 if (isset($_GET['ingredient'])){
     $ingredient = htmlspecialchars($_GET['ingredient']);
-    $lijst = ProductService::getByIngredient($mgr, $ingredient);
+    $lijst = (new ProductService)->getByIngredient($mgr, $ingredient);
     $twigDataArray['lijst'] = $lijst;
 }
-$ingredientlijst = IngredientService::getAll($mgr);
+$ingredientlijst = (new IngredientService)->getAll($mgr);
 $twigDataArray["ingredientlijst"] = $ingredientlijst;
-$plaatslijst = PlaatsService::getAll($mgr);
+$plaatslijst = (new PlaatsService)->getAll($mgr);
 $twigDataArray["plaatslijst"] = $plaatslijst;
 // Maak de pagina aan
 $view = $twig->render("$page.twig", $twigDataArray);

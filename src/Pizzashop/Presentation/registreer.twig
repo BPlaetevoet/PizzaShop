@@ -1,9 +1,9 @@
 {# empty Twig template #}
-{% extends 'BaseLayout.template.twig' %}
+{% extends 'baselayout.html.twig' %}
 {% set page='registreer' %}
 {% block content %}
     <div class='container'>
-    <h1>Registreer</h1>
+    <h1 class="pizzahead text-center">Registratie</h1>
     <div class='col-sm-6 col-sm-offset-3 loginform'>
         {% if login %}
             <p>Bedankt {{ login.klant.voornaam }} {{ login.klant.naam }} om te registreren. </p>

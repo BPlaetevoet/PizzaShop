@@ -14,8 +14,7 @@ class Ingredient{
      */
     protected $id;
     /**
-     * @ManyToOne(targetEntity="Product", inversedBy="samenstelling", cascade={"persist"})
-     * @JoinColumn(name="product_id", nullable=false, onDelete="CASCADE", referencedColumnName="id")
+     * @ManyToMany(targetEntity="Product", inversedBy="samenstelling")
      */
     protected $product;
     /**
@@ -23,9 +22,8 @@ class Ingredient{
      */
     protected $i_naam;
     
-    public function __construct($product, $i_naam){
+    public function __construct($i_naam){
         $this->i_naam = $i_naam;
-        $this->product = $product;
     }
     public function getId(){
         return $this->id;
@@ -35,6 +33,12 @@ class Ingredient{
     }
     public function getI_Naam(){
         return $this->i_naam;
+    }
+    public function addProduct(product $product){
+        if(!$this->product->contains($product)){
+            $this->product->add($product);
+        }
+        return $this;
     }
     public function setProduct($product){
         $this->product = $product;

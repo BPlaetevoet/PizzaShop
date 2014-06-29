@@ -1,11 +1,11 @@
 {# pizzas.twig #}
-{% extends 'BaseLayout.template.twig' %}
+{% extends 'baselayout.html.twig' %}
 {% block content %}
 <div class='container'>
     <section class='producten'>
     <h1 class="pizzahead text-center">Menukaart</h1>
     <p>&nbsp;</p>
-    <div class="col-md-6">
+    <div class="col-sm-8 col-sm-offset-2">
         <ul>
 
     {% for item in lijst %}
@@ -37,9 +37,9 @@
     {% endfor %}
     <ul>
     </div>
-    <aside class="col-sm-6 pull-right cartItems">
-    {% include 'cartItems.template.twig' %}
-    </aside>
+    {#<aside class="col-sm-6 pull-right cartItems">
+    {% include 'cartItems.html.twig' %}
+    </aside>#}
     </section>
 </div>
 {% endblock content %}
