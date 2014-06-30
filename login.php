@@ -11,8 +11,10 @@ if(isset($_GET["actie"])&& $_GET["actie"]=="uitloggen"){
     header('location:'.$_SERVER['HTTP_REFERER']);
 }
 if(isset($_GET["actie"])&& $_GET["actie"]== "inloggen"){
-    $mail = $validator->validate($_POST['mail']);
-    $password = $validator->validate($_POST['password']);
+    if (isset($_POST["mail"])&&(isset($_POST["password"]))){
+        $mail = $validator->validate($_POST['mail']);
+        $password = $validator->validate($_POST['password']);
+    }   
     if($mail && $password){
         $login = (new MemberService)->login($mgr, $mail, md5($password));
         if ($login){
@@ -26,6 +28,9 @@ if(isset($_GET["actie"])&& $_GET["actie"]== "inloggen"){
         }
         header('location: '.$_SERVER['HTTP_REFERER']);
         
+    }else{
+        $_SESSION["loginerror"]="Gelieve beide velden in te vullen";
+        header('location: '.$_SERVER['HTTP_REFERER']);
     }
 }
 if (isset($_GET["actie"]) && ($_GET["actie"]=="registreer")){

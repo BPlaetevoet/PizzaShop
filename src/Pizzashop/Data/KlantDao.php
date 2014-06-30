@@ -28,6 +28,19 @@ class KlantDao{
         }
         
     }
+    public function UpdateKlant($mgr, $id, $naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr){
+        $klant = (new KlantDao)->getById($mgr, $id);
+        $klant->setNaam($naam);
+        $klant->setVoornaam($voornaam);
+        $klant->setStraat($straat);
+        $klant->setNr($nr);
+        $klant->setBus($bus);
+        $klant->setPlaats($plaats);
+        $klant->setTelefoonnr($telefoonnr);
+        $mgr->persist($klant);
+        $mgr->flush();
+        return $klant;
+    }
 
 }
 

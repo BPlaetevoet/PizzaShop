@@ -18,31 +18,95 @@
     <div class="col-sm-6">
     {% if klant %}
         <h2 class="pizzahead"> Uw Gegevens :</h2>
-        <p> Naam : {{ klant.voornaam }} {{ klant.naam }}<br />
-            Adres : {{ klant.straat }} {{ klant.nr }} {% if klant.bus %} Bus {{ klant.bus }} {% endif %}<br />
-            Gemeente : {{ klant.plaats.postcode }} {{ klant.plaats.gemeente }}<br />
-            Tel.: 0{{ klant.telefoonnr }}<br />
-            
-        </p>
+        {% if option =='wijzig' %}
+            {% if success is empty %}
+            <form action="index.php?page=afrekenen&option=wijzig" method="post">
+                <input class="hidden" name="id" id="id" value="{{ klant.id }}" />
+                <div class="form-group{% if 'voornaam' in errors|keys %} has-error{% endif %}">
+                    <label for="voornaam">Voornaam :</label>
+                    <input type="text" class="form-control" id="voornaam" name="voornaam"
+                         value="{{ klant.voornaam }}" />
+                    {% if 'voornaam' in errors|keys %} <span class="help-block"><strong>{{ errors['voornaam'] }}</strong></span>{% endif %}
+                </div>
+                <div class="form-group{% if 'naam' in errors|keys %} has-error{% endif %}">
+                    <label for="naam">Familienaam</label>
+                    <input type="text" class="form-control" id="naam" name="naam"
+                        value="{{ klant.naam }}" />
+                    {% if 'naam' in errors|keys %} <span class="help-block"><strong>{{ errors['naam'] }}</strong></span>{% endif %}
+                </div>
+                <div class="form-group{% if ('straat' or 'nr') in errors|keys %} has-error{% endif %}">
+                    <div class="row">
+                        <div class="col-sm-6 xs-12">
+                            <label for="straat">Straat</label>
+                            <input type="text" class="form-control" id="straat" name="straat" 
+                             value="{{ klant.straat }}" />
+                        </div>
+                        <div class="col-sm-3 col-xs-8">
+                            <label for="nummer">Nr</label>
+                            <input type="number" class="form-control" id="nummer" name="nr"
+                            value="{{ klant.nr }}" />
+                        </div>
+                        <div class="col-sm-3 col-xs-4">
+                            <label for="bus">Bus</label>
+                            <input type="text" class="form-control optional" id="bus" name="bus"
+                           {% if klant.bus %} value="{{ klant.bus }}"{% endif %} />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label" for="plaats">Kies uw gemeente</label>
+                    <select class="form-control" id="plaats" name="plaats">
+                    {% for plaats in plaatslijst %}
+                        <option value="{{ plaats.id }}"{% if klant.plaats.id == plaats.id %} selected {% endif %}>{{ plaats.gemeente }}</option>
+                    {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="telefoonnr">Telefoon</label>
+                    <input type="text" class="form-control" id="telefoonnr" name="telefoonnr"
+                    value="{{ klant.telefoonnr }}" />
+                </div>
+            <button type="submit" class="btn pizza-btn">Wijzigen</button>
+            </form>
+            {% else %}
+                <p> Naam : {{ klant.voornaam }} {{ klant.naam }}<br />
+                    Adres : {{ klant.straat }} {{ klant.nr }} {% if klant.bus %} Bus {{ klant.bus }}{% endif %}<br />
+                    Gemeente : {{ klant.plaats.gemeente }}<br />
+                    Tel.: {{ klant.telefoonnr }}
+                </p>
         <a href="plaatsbestelling.php"><button class="btn pizza-btn pull-left">Bevestigen</button></a>
-        
         <br>
         &nbsp;
         <br>
-        {% else %}
-            {% if option == 'login' %}
+                Indien deze gegevens niet kloppen kunt u deze <a href="index.php?page=afrekenen&option=wijzig"> hier </a> wijzigen.
+        {% endif %}
+            {% else %}
+                <p> Naam : {{ klant.voornaam }} {{ klant.naam }}<br />
+                    Adres : {{ klant.straat }} {{ klant.nr }} {% if klant.bus %} Bus {{ klant.bus }}{% endif %}<br />
+                    Gemeente : {{ klant.plaats.gemeente }}<br />
+                    Tel.: {{ klant.telefoonnr }}
+                </p>
+        <a href="plaatsbestelling.php"><button class="btn pizza-btn pull-left">Bevestigen</button></a>
+        <br>
+        &nbsp;
+        <br>
+                Indien deze gegevens niet kloppen kunt u deze <a href="index.php?page=afrekenen&option=wijzig"> hier </a> wijzigen.
+        {% endif %}
+        {% if option=='login' %}
                 <br><br>
+                {% if loginerror %}
+                    <div class="has-error"><span class="help-block">{{ loginerror }}</span></div>
+                {% endif %}
                 {% include 'loginform.html.twig' %}
                 <br><br>
-                {% elseif option == 'new' %}
-                    {% include 'form.html.twig' %}
-                    {% else %}
+            {% elseif option == 'new' %}
+                {% include 'form.html.twig' %}
+            {% endif %}
+            {% else %}
             <h2 class="pizzahead"> Maak uw keuze </h2>
             <a href="index.php?page=afrekenen&option=login"> Ik heb een account </a><br />
             <a href="index.php?page=afrekenen&option=new"> Ik heb geen account </a><br />
-
-            {% endif %}
-    {% endif %}
+{%endif%}
     <p>&nbsp;</p>
     </div>
     </div>

@@ -43,5 +43,6 @@ if(empty($errors)){
             header('location: index.php?page=gastenboek&error=gastenboek');
         }
     }
+    
 }
 

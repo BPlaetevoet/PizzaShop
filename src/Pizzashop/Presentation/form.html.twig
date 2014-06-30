@@ -1,7 +1,7 @@
 {# form.html.twig
     word gebruikt voor registratie van nieuw lid + invoer klantgegevens bij bestelling
 #}
-    <form class="pizzaform" role="form" method="post" action="index.php{% if page == 'afrekenen' %}?page=afrekenen&option=new {% else %}?page=registreer {% endif %}">
+    <form class="pizzaform" role="form" method="post" action="index.php{% if page == 'afrekenen' %}?page=afrekenen&option=new{% else %}?page=registreer&option=register{% endif %}">
         <input class="hidden" id="page" name="page" value="{{ page }}">
         <div class="form-group{% if 'voornaam' in errors|keys %} has-error{% endif %}">
 		<label for="voornaam">Voornaam :</label>

@@ -16,7 +16,9 @@ if (isset($_SESSION["klant"])&&(isset($_SESSION["cartItems"]))){
     $bestelling = (new BestelService)->addBestelling($mgr, $klant, $items);
     if($bestelling){
         // Bestelling gelukt doorverwijzen naar bevestigingspagina
+        // klantgegevens en winkelwagentje ledigen en klant bedanken voor bestelling
         unset($_SESSION["cartItems"]);
+        unset($_SESSION["klant"]);
         header('location: index.php?page=bedankt&order='.$bestelling->getId());
     }else{
         // Er ging iets fout

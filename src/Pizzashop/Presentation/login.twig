@@ -8,7 +8,7 @@
             Klik <a href="index.php?page=home">hier</a> om verder te gaan naar de homepagina.
         {% else %}
             {% if loginerror %}
-                {{ loginerror }}
+                <div class="has-error"><span class="help-block">{{ loginerror }}</span></div>
             {% endif %}
     {% include 'loginform.html.twig' %}
     {% endif %}

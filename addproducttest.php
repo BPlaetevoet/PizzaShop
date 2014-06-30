@@ -53,17 +53,6 @@ use Doctrine\Common\Util\Debug;
 //Debug::dump($lijst);
 //print '</pre>';
 
-
-$naam = "WK Lovers";
-$prijs = 12.5;
-$samenstelling = array("champignons", "groene paprika", "ui", "tomatenblokjes", "tomatensaus", "mozzarella");
-//$pizza = ProductService::addProduct($mgr, $naam, $prijs, $samenstelling);
-$pizza = new Product($naam, $prijs);
-foreach($samenstelling as $i_naam){
-    $ingredient = (new Pizzashop\Data\IngredientDao)->addIngredient($mgr, $i_naam);
-    $pizza->addIngredient($ingredient);
-}
-$mgr->persist($pizza);
 print '<pre>';
  Debug::dump($pizza);
  print '</pre><br><br>';

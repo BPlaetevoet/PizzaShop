@@ -24,6 +24,10 @@ if(isset($_SESSION['login'])){
     $twigDataArray["klant"]= $member->getKlant();
     $_SESSION["klant"] = $member->getklant()->getId();
 }
+if (isset($_SESSION['klant'])){
+    $twigDataArray['klant']=(new KlantService)->getById($mgr, $_SESSION["klant"]);
+   
+}
 if (isset($_SESSION["loginerror"])){ // problemen bij het inloggen opvangen en terug meegeven in dataArray
     $twigDataArray["loginerror"]=$_SESSION['loginerror'];
 }
@@ -53,12 +57,18 @@ if (isset($_GET["page"])){
         case "gastenboek" :
             $gblijst = (new GastenboekService)->getAll($mgr);
             $twigDataArray["gblijst"]=$gblijst;
+        break;
         case "registreer" : 
+            if (isset($_GET["option"])){
+                $option = validate($_GET["option"]);
+            }
             include 'FormController.php';
+        break;
         case "afrekenen" :
             if (isset($_GET["option"])){
-                $twigDataArray['option'] = $_GET["option"];
-                include 'FormController.php';
+                $option = (new \Pizzashop\ValidationController)->validate($_GET["option"]);
+                $twigDataArray['option'] = $option;
+                include 'FormController.php';      
             }
         break;
         case "bedankt" :
@@ -74,6 +84,7 @@ if (isset($_GET["page"])){
                 }
                 $twigDataArray["fout"]="E-mail adres is al geregistreerd";
             }
+        break;
         case "home" :
             $gblijst = (new GastenboekService)->getLatestEntrys($mgr);
             $promolijst = (new PromoService)->getHuidigePromos($mgr);
