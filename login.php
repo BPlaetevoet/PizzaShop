@@ -6,8 +6,10 @@ use Pizzashop\ValidationController;
 use Pizzashop\Business\MemberService;
 use Pizzashop\Business\KlantService;
 $validator = new ValidationController();
+
 if(isset($_GET["actie"])&& $_GET["actie"]=="uitloggen"){
     unset($_SESSION["login"]);
+    unset($_SESSION["klant"]);
     header('location:'.$_SERVER['HTTP_REFERER']);
 }
 if(isset($_GET["actie"])&& $_GET["actie"]== "inloggen"){

@@ -12,15 +12,13 @@ function validate($data){ // valideer data
     return $data;
 }
 
-$plaatslijst = PlaatsService::getAll($mgr); // dropdown keuzes vullen voor plaatsen
+$plaatslijst = (new PlaatsService)->getAll($mgr); // dropdown keuzes vullen voor plaatsen
 $twigDataArray['plaatslijst'] = $plaatslijst;
 
 if ($_SERVER['REQUEST_METHOD']=='POST'){
     $errors = array(); // array voor de lege velden en foutmeldingen
     $fields = array(); // een array aanmaken om de reeds ingevulde velden terug mee te geven
-    if (isset($_POST['page'])){
-        $page = validate($_POST['page']);
-    }
+
     if(empty($_POST['naam'])){
         $errors['naam'] = 'naam is niet ingevuld';
     }else{
@@ -57,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
         $errors['plaats'] = 'geen gemeente gekozen';
     }else{
         if(is_numeric($_POST['plaats'])){
-            $plaats = PlaatsService::getById($mgr, $_POST['plaats']);
+            $plaats = (new PlaatsService)->getById($mgr, $_POST['plaats']);
             $fields['plaats']= $plaats->getId();
         }
     }
@@ -68,17 +66,25 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
             $errors['telefoonnr'] = 'enkel cijfers toegelaten bv.:051010203';
         }else{
             $telefoonnr = validate($_POST['telefoonnr']);
-            $fields['telefoonnr']= $telefoonnr;
+            $num_length = strlen((string)$telefoonnr);
+            if ($num_length ==10 || $num_length == 9){
+                $fields['telefoonnr']= $telefoonnr;
+            } else {
+                $errors['telefoonnr'] = "Enkel 9cijfers voor vaste nummers of 10 voor mobiele toegelaten.";
+            }
+            
         }
     }
-    if($page=='registreer'){
+    
+    if($option=='register'){ //extra velden nodig bij registratie members controleren
         if(empty($_POST['mail'])){ 
             $errors['mail'] = 'e-mail niet ingevuld';
         }else{
             $mail = validate($_POST['mail']);
             $fields['mail']=$mail;
-            if(MemberService::getByMail($mgr,$mail)){
-                $errors['mail'] = 'E-mail niet uniek';
+            $memberexists = (new MemberService)->getByMail($mgr, $mail);
+            if($memberexists){
+                $errors['mail'] = 'Dit mailadres bestaat al in ons systeem';
             }
         }
         if(empty($_POST['password'])){
@@ -88,44 +94,38 @@ if ($_SERVER['REQUEST_METHOD']=='POST'){
             $fields['password']=$password;
         }
     }
-
     if (!empty($errors)){ // keer terug met fouten !!
         $twigDataArray['errors'] = $errors;
         $twigDataArray['fields'] = $fields;
-//        if($id == 'klant'){ 
-            $twigDataArray['option'] = 'new';
-//            $view = $twig->render("afrekenen.twig", $twigDataArray);
-//        }else{
-//            $view = $twig->render("registreer.twig", $twigDataArray);
-//        }
-//        print $view;
+        $twigDataArray['option'] = $option;
     }
+   
     if (empty($errors)){ // Geen errors ga verder met registratie
-        if($page=="afrekenen"){
-            $klant = KlantService::addKlant($mgr, $naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr);
-            if($klant){ // klantgegevens opslaan gelukt
-                $twigDataArray['klant'] = $klant;
-                $_SESSION["klant"] = $klant->getId();
-//                $view = $twig->render("bevestigen.twig", array('klant'=>$klant));
-//                print $view;
-            }
-        }elseif($page=="registreer") {
-            $klant = KlantService::addKlant($mgr, $naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr);
-            $member = MemberService::addMember($mgr, $mail, md5($password), $klant);
+        if($page=="registreer") {
+            $klant = (new KlantService)->addKlant($mgr, $naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr);
+            $member = (new MemberService)->addMember($mgr, $mail, md5($password), $klant);
             if($member){ // registratie gelukt 
                 setcookie('pizzashop_cookie', $mail, 0);
                 $_SESSION['login'] = $member->getId();
-//                $view = $twig->render('registreer.twig', array('login'=>$member));
-//                print $view;
-//            }else{
-//                $view = $twig->render('registreer.twig', array('error'=>'E-mail adres is al geregistreerd'));
             }  
         }
-        
-    }
-}
-
-//}else {
-//    $view = $twig->render('registreer.twig', array('plaatslijst'=>$plaatslijst));
-//    print $view;
-//}
+        if(isset($option)){
+            switch ($option){
+                 case "wijzig" :
+                    $id = validate($_POST["id"]);
+                    $klant = (new KlantService)->UpdateKlant($mgr, $_POST["id"], $naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr);
+                    $twigDataArray['klant']= $klant;
+                    $twigDataArray['success']="wijziging";
+                break;
+                 case "new" :
+                    $klant = (new KlantService)->addKlant($mgr, $naam, $voornaam, $straat, $nr, $bus, $plaats, $telefoonnr);
+                        if($klant){ // klantgegevens opslaan gelukt
+                            $twigDataArray['klant'] = $klant;
+                            $_SESSION["klant"] = $klant->getId();
+                        }
+                        break;
+                        
+                    }
+                }
+            }
+        }

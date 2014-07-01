@@ -34,7 +34,7 @@
                         value="{{ klant.naam }}" />
                     {% if 'naam' in errors|keys %} <span class="help-block"><strong>{{ errors['naam'] }}</strong></span>{% endif %}
                 </div>
-                <div class="form-group{% if ('straat' or 'nr') in errors|keys %} has-error{% endif %}">
+                <div class="form-group{% if ('straat' in errors|keys) or ('nr' in errors|keys) %} has-error{% endif %}">
                     <div class="row">
                         <div class="col-sm-6 xs-12">
                             <label for="straat">Straat</label>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-sm-3 col-xs-8">
                             <label for="nummer">Nr</label>
-                            <input type="number" class="form-control" id="nummer" name="nr"
+                            <input type="number" min="1" class="form-control" id="nummer" name="nr"
                             value="{{ klant.nr }}" />
                         </div>
                         <div class="col-sm-3 col-xs-4">
