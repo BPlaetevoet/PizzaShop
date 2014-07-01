@@ -43,7 +43,7 @@
                 <div class="col-sm-6 xs-12">
 		<label for="straat">Straat</label>
 		<input type="text" class="form-control" id="straat" name="straat" 
-                    {% if straat in fields|keys %} value="{{ fields['straat'] }}"
+                    {% if 'straat' in fields|keys %} value="{{ fields['straat'] }}"
                         {% else %} placeholder="straat" {% endif %}/>
                 </div>
                 <div class="col-sm-3 col-xs-8">

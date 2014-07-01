@@ -2,6 +2,7 @@
 session_start();
 
 require_once 'bootstrap.php';
+use Pizzashop\ValidationController;
 use Pizzashop\Business\PlaatsService;
 use Pizzashop\Business\ProductService;
 use Pizzashop\Business\MemberService;
@@ -21,6 +22,7 @@ if(isset($_COOKIE['pizzashop_cookie'])){
 if(isset($_SESSION['login'])){
     $member = (new MemberService)->getById($mgr, $_SESSION['login']);
     $twigDataArray["login"]= TRUE;
+    $twigDataArray["member"]=$member;
     $twigDataArray["klant"]= $member->getKlant();
     $_SESSION["klant"] = $member->getklant()->getId();
 }
@@ -60,15 +62,15 @@ if (isset($_GET["page"])){
         break;
         case "registreer" : 
             if (isset($_GET["option"])){
-                $option = validate($_GET["option"]);
+                $option = (new ValidationController)->validate($_GET["option"]);
             }
-            include 'FormController.php';
+            include 'formcontroller.php';
         break;
         case "afrekenen" :
             if (isset($_GET["option"])){
-                $option = (new \Pizzashop\ValidationController)->validate($_GET["option"]);
+                $option = (new ValidationController)->validate($_GET["option"]);
                 $twigDataArray['option'] = $option;
-                include 'FormController.php';      
+                include 'formcontroller.php';      
             }
         break;
         case "bedankt" :

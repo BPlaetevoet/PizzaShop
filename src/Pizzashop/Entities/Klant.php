@@ -40,7 +40,7 @@ class Klant{
     */
     protected $plaats;
     /**
-     * @Column(type="integer", name="telefoonnr")
+     * @Column(type="string", name="telefoonnr")
      */
     protected $telefoonnr;
     

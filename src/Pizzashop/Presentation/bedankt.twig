@@ -20,17 +20,20 @@
                 {% if bestelling.klant.bus %}/{{bestelling.klant.bus}}{% endif %}<br>
                 {{bestelling.klant.plaats.postcode}} {{bestelling.klant.plaats.gemeente}}
                 <p>&nbsp;</p>
+                Totaal : {{ bestelling.bedrag }}&euro;
+            {% endif %}
+            {% if not login %}
                 <p>
                 Wenst u aan de hand van deze gegevens te registreren vul dan onderstaand formulier in
                 </p>
-            {% endif %}
+            
                 <div class="col-md-4 col-md-offset-4">
                     <form role="register" method="post" action="login.php?actie=registreer">
                     <input class="hidden" name="id" id="id" value="
                            {% if bestelling %}{{bestelling.klant.id}}{% elseif klant %}{{klant.id}}{%endif%}">
                 <div class="form-group {% if fout %}has-error{% endif %}">
                     <label for="mail">Email</label>
-                    <input type="mail" class="form-control" name="mail" id="mail" placeholder="e-mail" {% if cookie %}value="{{ cookie }}{% endif %}"/>
+                    <input type="mail" class="form-control" name="mail" id="mail" placeholder="e-mail" />
                     {% if fout %}<span class="help-block">{{ fout }}</span>{% endif %}
                 </div>
                 <div class="form-group ">
@@ -41,7 +44,7 @@
                 </form>
   
         </div>
-            
+            {% endif %}
         </div>   
     </div>
 {% endblock %}

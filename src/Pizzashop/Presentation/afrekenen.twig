@@ -53,7 +53,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group{% if plaats in errors|keys %} has-error{% endif %}">
                     <label class="control-label" for="plaats">Kies uw gemeente</label>
                     <select class="form-control" id="plaats" name="plaats">
                     {% for plaats in plaatslijst %}
@@ -61,10 +61,11 @@
                     {% endfor %}
                     </select>
                 </div>
-                <div class="form-group">
+                <div class="form-group{% if 'telefoonnr' in errors|keys %} has-error{% endif %}">
                     <label for="telefoonnr">Telefoon</label>
                     <input type="text" class="form-control" id="telefoonnr" name="telefoonnr"
                     value="{{ klant.telefoonnr }}" />
+                    {% if 'telefoonnr' in errors|keys %} <span class="help-block"><strong>{{ errors['telefoonnr'] }}</strong></span>{% endif %}
                 </div>
             <button type="submit" class="btn pizza-btn">Wijzigen</button>
             </form>
@@ -92,7 +93,8 @@
         <br>
                 Indien deze gegevens niet kloppen kunt u deze <a href="index.php?page=afrekenen&option=wijzig"> hier </a> wijzigen.
         {% endif %}
-        {% if option=='login' %}
+        {% else %}
+           {% if option=='login' %}
                 <br><br>
                 {% if loginerror %}
                     <div class="has-error"><span class="help-block">{{ loginerror }}</span></div>
@@ -101,13 +103,16 @@
                 <br><br>
             {% elseif option == 'new' %}
                 {% include 'form.html.twig' %}
-            {% endif %}
+            
             {% else %}
             <h2 class="pizzahead"> Maak uw keuze </h2>
             <a href="index.php?page=afrekenen&option=login"> Ik heb een account </a><br />
             <a href="index.php?page=afrekenen&option=new"> Ik heb geen account </a><br />
-{%endif%}
+{%endif%} 
+    {% endif %}
+        
     <p>&nbsp;</p>
     </div>
     </div>
+
 {% endblock %}

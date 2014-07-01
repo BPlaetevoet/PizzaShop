@@ -17,12 +17,12 @@
                 <div class="form-group">
                     <label class="control-label" for="naam"></label>
                     <input type="text" class="form-control" id="naam" name="naam" placeholder="Jan Janssens" 
-                           {% if login %}value="{{login.klant.naam}}"{% endif %}>
+                           {% if login %}value="{{ klant.voornaam }} {{ klant.naam }}"{% endif %}>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="mail"></label>
                         <input type="e-mail" class="form-control" name="mail" id="mail" placeholder="Jan.Janssens@mail.be"
-                               {% if login %} value="{{login.klant.mail}}"{% endif %}>
+                               {% if login %} value="{{ member.mail }}"{% endif %}>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="boodschap"></label>

@@ -5,10 +5,8 @@
         <section id="gastenboek" class="col-xs-8 col-xs-offset-2 text-center">
         <div class="gb-items">
             {% for item in gblijst %}
-                
                 <div class="row">op {{item.datum|date('d M Y - H:m')}} schreef {{ item.naam }}</div>
                 <div class="row">{{item.boodschap}}</div>
-                
             {% endfor %}
         </div>
         
@@ -16,12 +14,12 @@
                 <div class="form-group">
                     <label class="control-label" for="naam"></label>
                     <input type="text" class="form-control" id="naam" name="naam" placeholder="Jan Janssens" 
-                           {% if login %}value="{{login.klant.naam}}"{% endif %}>
+                           {% if login %}value="{{ klant.voornaam }} {{ klant.naam }}"{% endif %}>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="mail"></label>
-                        <input type="e-mail" class="form-control" name="mail" id="mail" placeholder="Jan.Janssens@mail.be"
-                               {% if login %} value="{{login.klant.mail}}"{% endif %}>
+                        <input type="e-mail" class="form-control" name="mail" id="mail" 
+                               {% if login %} value="{{ member.mail }}"{% else %} placeholder="Jan.Janssens@Hotmail.com"{% endif %}>
                 </div>
                 <div class="form-group">
                     <label class="control-label" for="boodschap"></label>
@@ -30,8 +28,8 @@
                 {% if success == "contact" %}
                     <span class="label label-success">Bedankt voor uw feedback</span>
                     {% endif %}
-                {%if error == "contact" %}
-                <span class="label label-danger">Er ging iets mis, controleer of u alle velden wel correct hebt ingevuld</span>
+                {% if error == "gastenboek" %}
+                    <span class="label label-danger">Er ging iets mis, controleer of u alle velden wel correct hebt ingevuld</span>
                 {% endif %}
                 <input type="hidden" name="page" id="page" value="gastenboek">
                 <input type="submit" class="btn pizza-btn" value="Verzenden">
