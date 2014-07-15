@@ -3,7 +3,7 @@
 {% block content %}
     <div class="container">
         <div class="text-center">
-            {% if bestelling %}
+            {% if bestelling is defined %}
                 <span class="thanx"> Gracias </span> 
                 <p>&nbsp;</p>
                 <p>
@@ -15,10 +15,10 @@
                 {% endfor %}
                 </p>
                 Op volgend adres :<br>
-                {{bestelling.klant.voornaam}} {{bestelling.klant.naam}}<br>
-                {{bestelling. klant.straat}} {{bestelling.klant.nr}}
-                {% if bestelling.klant.bus %}/{{bestelling.klant.bus}}{% endif %}<br>
-                {{bestelling.klant.plaats.postcode}} {{bestelling.klant.plaats.gemeente}}
+                {{klant.voornaam}} {{klant.naam}}<br>
+                {{klant.straat}} {{klant.nr}}
+                {% if klant.bus %}/{{klant.bus}}{% endif %}<br>
+                {{klant.plaats.postcode}} {{klant.plaats.gemeente}}
                 <p>&nbsp;</p>
                 Totaal : {{ bestelling.bedrag }}&euro;
             {% endif %}

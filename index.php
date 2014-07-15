@@ -76,7 +76,13 @@ if (isset($_GET["page"])){
         case "bedankt" :
             if(isset($_GET["order"])){
                 $bestelling = (new BestelService)->getById($mgr, $_GET["order"]);
-                $twigDataArray["bestelling"] = $bestelling;
+                $klant = $bestelling->getKlant();
+//                print '<pre>';
+//                Debug::dump($bestelling);
+//                print '</pre>';
+                $besteld = $bestelling;
+                $twigDataArray["bestelling"] = $besteld;
+                $twigDataArray["klant"] = $klant;
             }
             if (isset($_GET["fout"]) && ($_GET["fout"]==1)){
                 if (isset($_GET["klant"])){

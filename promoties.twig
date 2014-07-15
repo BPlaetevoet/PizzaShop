@@ -1,0 +1,35 @@
+{# promoties.twig #}
+{% extends 'baselayout.html.twig' %}
+{% block content %}
+    <div class="container">
+        <h1 class="pizzahead text-center"> Promoties</h1>
+        <section id="promos" class="col-sm-8 col-sm-offset-2">
+        <h4> Huidige promoties :</h4>
+        {% if promolijst %}
+            {% for promo in promolijst %}
+                <blockquote><img class="pizza-img" src="images/{{promo.product.naam}}.jpg">
+                    <h3 class="pizzahead">{{ promo.product.naam }}</h3> 
+                    van <span class="text-danger"><del>{{ promo.product.prijs }}&euro;</del></span>
+                    voor <span class="text-success">{{ promo.promoprijs }}&euro;</span><br>
+                    <sub>Geldig van {{promo.begindatum|date("Y-m-d")}} tot {{promo.einddatum|date("Y-m-d")}}</sub>
+                </blockquote>
+            {% endfor %}
+            {% else %}
+                <blockquote>
+                Er zijn momenteel geen lopende promoties
+                </blockquote>
+        {% endif %}
+                
+            <h4> Binnenkort verwachte promoties : </h4>
+                {% for promo in promosverwacht %}
+                    <blockquote><img class="pizza-img" src="images/{{promo.product.naam}}.jpg">
+                    <h3 class="pizzahead">{{ promo.product.naam }}</h3> 
+                    van <span class="text-danger"><del>{{ promo.product.prijs }}&euro;</del></span>
+                    voor <span class="text-success">{{ promo.promoprijs }}&euro;</span><br>
+                    <sub>Geldig van {{promo.begindatum|date("Y-m-d")}} tot {{promo.einddatum|date("Y-m-d")}}</sub>
+                </blockquote>
+            {% endfor %}
+        
+        </section>
+    </div>
+{% endblock %}
